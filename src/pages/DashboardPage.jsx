@@ -285,7 +285,11 @@ function DashboardPage({ onLogout }) {
             </div>
 
             <div className="dashboard-header-actions">
-              <button type="button" className="dashboard-pill-button" onClick={onLogout}>
+              <button
+                  type="button"
+                  className="dashboard-pill-button"
+                  onClick={onLogout}
+              >
                 Logout
               </button>
             </div>
