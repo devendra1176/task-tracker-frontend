@@ -1,4 +1,5 @@
-const TASK_BASE_URL = "http://localhost:8080/tasks";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const TASK_BASE_URL = `${API_BASE_URL}/tasks`;
 
 function getToken() {
   return localStorage.getItem("token");
@@ -60,11 +61,11 @@ function buildUrl(baseUrl, paramsObj = {}) {
 }
 
 export async function getAllTasks({
-  page = 0,
-  size = 5,
-  sortBy = "id",
-  direction = "asc",
-} = {}) {
+                                    page = 0,
+                                    size = 5,
+                                    sortBy = "id",
+                                    direction = "asc",
+                                  } = {}) {
   const url = buildUrl(TASK_BASE_URL, {
     page,
     size,
@@ -81,13 +82,13 @@ export async function getAllTasks({
 }
 
 export async function getFilteredTasks({
-  page = 0,
-  size = 5,
-  sortBy = "id",
-  direction = "asc",
-  status,
-  priority,
-} = {}) {
+                                         page = 0,
+                                         size = 5,
+                                         sortBy = "id",
+                                         direction = "asc",
+                                         status,
+                                         priority,
+                                       } = {}) {
   const url = buildUrl(`${TASK_BASE_URL}/filter`, {
     page,
     size,
@@ -106,12 +107,12 @@ export async function getFilteredTasks({
 }
 
 export async function searchTasks({
-  keyword,
-  page = 0,
-  size = 5,
-  sortBy = "id",
-  direction = "asc",
-} = {}) {
+                                    keyword,
+                                    page = 0,
+                                    size = 5,
+                                    sortBy = "id",
+                                    direction = "asc",
+                                  } = {}) {
   const url = buildUrl(`${TASK_BASE_URL}/search`, {
     keyword,
     page,
