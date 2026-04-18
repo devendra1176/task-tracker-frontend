@@ -1,16 +1,136 @@
-# React + Vite
+# Task Tracker Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean and responsive frontend for the Task Tracker project, built using **React** and **Vite**, and integrated with a secure **Spring Boot backend API**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live Application
 
-## React Compiler
+Frontend (Full Application):
+https://task-tracker-frontend-devendra1176s-projects.vercel.app/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Backend API:
+https://task-tracker-api-kgsq.onrender.com
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features
+
+* User signup and login interface
+* JWT-based authentication flow
+* Token-based access to protected APIs
+* Task dashboard for authenticated users
+* Create, update, and delete tasks
+* Search tasks by keyword
+* Filter tasks by status and priority
+* Pagination support
+* Clean and modern user interface
+* Integration with backend REST APIs
+
+---
+
+## Tech Stack
+
+* React
+* Vite
+* JavaScript
+* CSS
+* Fetch API
+
+---
+
+## Application Flow
+
+1. User signs up or logs in
+2. Backend returns a JWT token
+3. Token is stored on the client side
+4. Protected API requests include the Bearer token
+5. User can manage only their own tasks
+
+---
+
+## Main Pages
+
+* Auth Page
+* Dashboard Page
+
+---
+
+## Backend Integration
+
+This frontend is integrated with the Task Tracker backend API built using:
+
+* Spring Boot
+* Spring Security
+* JWT Authentication
+* PostgreSQL
+
+---
+
+## Run Locally
+
+### Requirements
+
+* Node.js
+* npm
+
+### Clone the repository
+
+```bash id="2mook7"
+git clone https://github.com/devendra1176/task-tracker-frontend.git
+cd task-tracker-frontend
+```
+
+### Install dependencies
+
+```bash id="6w88q8"
+npm install
+```
+
+### Start the development server
+
+```bash id="fb2p7a"
+npm run dev
+```
+
+### Frontend URL
+
+After running locally, open:
+
+```text id="wnl96z"
+http://localhost:5173
+```
+
+---
+
+## Deployment
+
+* Frontend deployed on Vercel
+* Backend deployed separately on Render
+
+---
+
+## Future Improvements
+
+* Better UI polish
+* Inline task editing
+* Improved loading and error states
+* Better mobile responsiveness
+* Dark mode enhancements
+
+---
+
+## Author
+
+**Devendra Sahu**
+
+Aspiring Java Backend Developer | Spring Boot | REST APIs | JWT | PostgreSQL | Learning React
+
+---
+
+## Project Goal
+
+This frontend was built to transform a secure backend system into a usable product with authentication, task operations, and a clean dashboard experience.
+
+---
+---
