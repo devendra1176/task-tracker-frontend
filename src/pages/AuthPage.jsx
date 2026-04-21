@@ -13,7 +13,6 @@ function AuthPage({ onLogin }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setMessage("");
     setError("");
     setUsername("");
     setEmail("");
@@ -69,13 +68,13 @@ function AuthPage({ onLogin }) {
 
         onLogin(token);
       } else {
-        await signupUser({
+        const result = await signupUser({
           username: username.trim(),
           email: email.trim(),
           password,
         });
 
-        setMessage("Account created successfully. Please sign in.");
+        setMessage(result?.message || "Account created successfully. Please sign in.");
         setAuthMode("login");
       }
     } catch (err) {
@@ -130,8 +129,12 @@ function AuthPage({ onLogin }) {
 
           <section className="auth-form-panel">
             <div className="auth-form-header">
-              <h2>Welcome back</h2>
-              <p>Sign in to continue managing your tasks.</p>
+              <h2>{authMode === "login" ? "Welcome back" : "Create your account"}</h2>
+              <p>
+                {authMode === "login"
+                    ? "Sign in to continue managing your tasks."
+                    : "Sign up to start managing your tasks."}
+              </p>
             </div>
 
             <div className="auth-mode-switch">

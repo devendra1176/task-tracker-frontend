@@ -1,22 +1,27 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const AUTH_BASE_URL = `${API_BASE_URL}/auth`;
 
-async function parseJsonSafely(response) {
+async function parseResponseSafely(response) {
+  const contentType = response.headers.get("content-type") || "";
   const text = await response.text();
 
   if (!text) {
     return {};
   }
 
-  try {
-    return JSON.parse(text);
-  } catch {
-    throw new Error("Server returned an invalid response.");
+  if (contentType.includes("application/json")) {
+    try {
+      return JSON.parse(text);
+    } catch {
+      throw new Error("Server returned invalid JSON.");
+    }
   }
+
+  return { message: text };
 }
 
 async function handleResponse(response, fallbackMessage) {
-  const result = await parseJsonSafely(response);
+  const result = await parseResponseSafely(response);
 
   if (!response.ok) {
     throw new Error(result.message || fallbackMessage || `Request failed (${response.status})`);
