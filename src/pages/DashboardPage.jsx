@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   getAllTasks,
   getFilteredTasks,
@@ -10,6 +10,7 @@ import {
 import TaskCreateCard from "../components/TaskCreateCard";
 import TaskToolbar from "../components/TaskToolbar";
 import TaskList from "../components/TaskList";
+import AiAssistantPanel from "../components/AiAssistantPanel";
 
 const DEFAULT_FORM = {
   title: "",
@@ -60,22 +61,7 @@ function DashboardPage({ onLogout }) {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  useEffect(() => {
-    fetchTasks();
-  }, [page, appliedSearch, appliedStatus, appliedPriority, appliedSortOption]);
-
-  useEffect(() => {
-    if (!error && !success) return;
-
-    const timer = setTimeout(() => {
-      setError("");
-      setSuccess("");
-    }, 3500);
-
-    return () => clearTimeout(timer);
-  }, [error, success]);
-
-  async function fetchTasks() {
+  const fetchTasks = useCallback(async () => {
     try {
       setIsFetching(true);
       setError("");
@@ -129,7 +115,22 @@ function DashboardPage({ onLogout }) {
     } finally {
       setIsFetching(false);
     }
-  }
+  }, [page, appliedSearch, appliedStatus, appliedPriority, appliedSortOption]);
+
+  useEffect(() => {
+    fetchTasks();
+  }, [fetchTasks]);
+
+  useEffect(() => {
+    if (!error && !success) return;
+
+    const timer = setTimeout(() => {
+      setError("");
+      setSuccess("");
+    }, 3500);
+
+    return () => clearTimeout(timer);
+  }, [error, success]);
 
   const stats = useMemo(() => {
     return {
@@ -275,90 +276,94 @@ function DashboardPage({ onLogout }) {
 
   return (
       <div className="dashboard-page">
-        <div className="dashboard-container">
-          <header className="dashboard-header">
-            <div className="dashboard-header-main">
-              <h1 className="dashboard-title">Task Dashboard</h1>
-              <p className="dashboard-subtitle">
-                Track work, update progress, stay consistent.
-              </p>
-            </div>
+        <div className="dashboard-container dashboard-layout">
+          <main className="dashboard-main">
+            <header className="dashboard-header">
+              <div className="dashboard-header-main">
+                <h1 className="dashboard-title">Task Dashboard</h1>
+                <p className="dashboard-subtitle">
+                  Track work, update progress, stay consistent.
+                </p>
+              </div>
 
-            <div className="dashboard-header-actions">
-              <button
-                  type="button"
-                  className="dashboard-pill-button"
-                  onClick={onLogout}
-              >
-                Logout
-              </button>
-            </div>
-          </header>
+              <div className="dashboard-header-actions">
+                <button
+                    type="button"
+                    className="dashboard-pill-button"
+                    onClick={onLogout}
+                >
+                  Logout
+                </button>
+              </div>
+            </header>
 
-          {error && <div className="message message-error">{error}</div>}
-          {success && <div className="message message-success">{success}</div>}
+            {error && <div className="message message-error">{error}</div>}
+            {success && <div className="message message-success">{success}</div>}
 
-          <section className="dashboard-stats-grid">
-            <div className="dashboard-stat-card">
-              <span className="dashboard-stat-label">Total</span>
-              <strong>{stats.total}</strong>
-            </div>
+            <section className="dashboard-stats-grid">
+              <div className="dashboard-stat-card">
+                <span className="dashboard-stat-label">Total</span>
+                <strong>{stats.total}</strong>
+              </div>
 
-            <div className="dashboard-stat-card">
-              <span className="dashboard-stat-label">Todo</span>
-              <strong>{stats.todo}</strong>
-            </div>
+              <div className="dashboard-stat-card">
+                <span className="dashboard-stat-label">Todo</span>
+                <strong>{stats.todo}</strong>
+              </div>
 
-            <div className="dashboard-stat-card">
-              <span className="dashboard-stat-label">In Progress</span>
-              <strong>{stats.inProgress}</strong>
-            </div>
+              <div className="dashboard-stat-card">
+                <span className="dashboard-stat-label">In Progress</span>
+                <strong>{stats.inProgress}</strong>
+              </div>
 
-            <div className="dashboard-stat-card">
-              <span className="dashboard-stat-label">Done</span>
-              <strong>{stats.done}</strong>
-            </div>
-          </section>
+              <div className="dashboard-stat-card">
+                <span className="dashboard-stat-label">Done</span>
+                <strong>{stats.done}</strong>
+              </div>
+            </section>
 
-          <TaskCreateCard
-              showCreateForm={showCreateForm}
-              onToggle={() => setShowCreateForm((prev) => !prev)}
-              formData={formData}
-              onInputChange={handleInputChange}
-              onSubmit={handleCreateTask}
-              onReset={resetForm}
-              isCreating={isCreating}
-          />
+            <TaskCreateCard
+                showCreateForm={showCreateForm}
+                onToggle={() => setShowCreateForm((prev) => !prev)}
+                formData={formData}
+                onInputChange={handleInputChange}
+                onSubmit={handleCreateTask}
+                onReset={resetForm}
+                isCreating={isCreating}
+            />
 
-          <TaskToolbar
-              searchKeyword={searchKeyword}
-              statusFilter={statusFilter}
-              priorityFilter={priorityFilter}
-              sortOption={sortOption}
-              onSearchChange={setSearchKeyword}
-              onStatusChange={setStatusFilter}
-              onPriorityChange={setPriorityFilter}
-              onSortChange={setSortOption}
-              onApply={handleApplyToolbar}
-              onReset={handleResetToolbar}
-          />
+            <TaskToolbar
+                searchKeyword={searchKeyword}
+                statusFilter={statusFilter}
+                priorityFilter={priorityFilter}
+                sortOption={sortOption}
+                onSearchChange={setSearchKeyword}
+                onStatusChange={setStatusFilter}
+                onPriorityChange={setPriorityFilter}
+                onSortChange={setSortOption}
+                onApply={handleApplyToolbar}
+                onReset={handleResetToolbar}
+            />
 
-          <TaskList
-              tasks={tasks}
-              isFetching={isFetching}
-              actionTaskId={actionTaskId}
-              expandedTaskId={expandedTaskId}
-              onToggleExpand={handleToggleExpand}
-              selectedStatuses={selectedStatuses}
-              onStatusChange={handleStatusChange}
-              onUpdateStatus={handleUpdateStatus}
-              onDeleteTask={handleDeleteTask}
-              page={page}
-              totalPages={pageInfo.totalPages}
-              isLastPage={pageInfo.last}
-              onPrevPage={() => setPage((prev) => prev - 1)}
-              onNextPage={() => setPage((prev) => prev + 1)}
-          />
+            <TaskList
+                tasks={tasks}
+                isFetching={isFetching}
+                actionTaskId={actionTaskId}
+                expandedTaskId={expandedTaskId}
+                onToggleExpand={handleToggleExpand}
+                selectedStatuses={selectedStatuses}
+                onStatusChange={handleStatusChange}
+                onUpdateStatus={handleUpdateStatus}
+                onDeleteTask={handleDeleteTask}
+                page={page}
+                totalPages={pageInfo.totalPages}
+                isLastPage={pageInfo.last}
+                onPrevPage={() => setPage((prev) => prev - 1)}
+                onNextPage={() => setPage((prev) => prev + 1)}
+            />
+          </main>
+
+          <AiAssistantPanel onUnauthorized={onLogout} />
         </div>
       </div>
   );
