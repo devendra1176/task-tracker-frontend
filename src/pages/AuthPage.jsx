@@ -13,6 +13,7 @@ function AuthPage({ onLogin }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setMessage("");
     setError("");
     setUsername("");
     setEmail("");
@@ -45,7 +46,6 @@ function AuthPage({ onLogin }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     setMessage("");
     setError("");
 
@@ -91,39 +91,31 @@ function AuthPage({ onLogin }) {
             <div className="auth-brand-kicker">TASK TRACKER</div>
 
             <h1 className="auth-brand-title">
-              Work with clarity.
+              Clarity for your work.
               <br />
-              Move with control.
+
+              Control for your day.
             </h1>
 
             <p className="auth-brand-text">
-              A focused task workspace for planning daily work, tracking progress,
-              and finishing what matters without noise.
+              Organize tasks, track priorities, and use AI guidance in one focused workspace.
             </p>
 
-            <div className="auth-brand-divider" />
+            <div className="auth-feature-row">
+            <span className="auth-feature-badge auth-feature-badge-secure">
+              <span className="auth-feature-dot" />
+              Secure
+            </span>
 
-            <div className="auth-brand-points">
-              <div className="auth-brand-point">
-                <div className="auth-brand-point-title">Capture</div>
-                <div className="auth-brand-point-text">
-                  Turn ideas and duties into clear tasks.
-                </div>
-              </div>
+              <span className="auth-feature-badge auth-feature-badge-priority">
+              <span className="auth-feature-dot" />
+              Priorities
+            </span>
 
-              <div className="auth-brand-point">
-                <div className="auth-brand-point-title">Track</div>
-                <div className="auth-brand-point-text">
-                  See progress, priority, and due dates at a glance.
-                </div>
-              </div>
-
-              <div className="auth-brand-point">
-                <div className="auth-brand-point-title">Finish</div>
-                <div className="auth-brand-point-text">
-                  Stay consistent with a calmer daily workflow.
-                </div>
-              </div>
+              <span className="auth-feature-badge auth-feature-badge-ai">
+              <span className="auth-feature-dot" />
+              AI Help
+            </span>
             </div>
           </section>
 
