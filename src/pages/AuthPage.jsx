@@ -98,7 +98,8 @@ function AuthPage({ onLogin }) {
             </h1>
 
             <p className="auth-brand-text">
-              Organize tasks, track priorities, and use AI guidance in one focused workspace.
+              <div>Organize tasks, track priorities, and use</div>
+              <div>AI guidance in one focused workspace.</div>
             </p>
 
             <div className="auth-feature-row">

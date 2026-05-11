@@ -536,19 +536,22 @@ img {
     padding: 6px 11px;
     border-radius: 999px;
     font-size: 0.78rem;
+    font-family: "Cormorant Garamond", "EB Garamond", serif;
     font-weight: 900;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.06em;
     color: #9fd0ff;
     background: rgba(56, 189, 248, 0.1);
     border: 1px solid rgba(56, 189, 248, 0.18);
 }
 
 .ai-assistant-title {
-    margin: 4px 0 0 0;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--primary);
-    letter-spacing: 0.02em;
+    margin: 2px 0 0 0;
+    font-size: 0.87rem;
+    font-weight: 400;
+    font-family: "Bodoni Moda", "Didot", serif;
+    font-style: italic;
+    color: steelblue;
+    letter-spacing: 0.03em;
 }
 
 .ai-assistant-helper-text {
