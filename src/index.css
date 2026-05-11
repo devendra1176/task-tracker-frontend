@@ -464,10 +464,14 @@ img {
 }
 
 .auth-note {
-    margin-top: 14px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.94rem;
+    margin-top: 20px;
+    font-weight: 400;
+    font-size: 0.84rem;
+    line-height: 1.5;
+    color: var(--shadow-soft);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: flex-start;
 }
 
 /* =========================
