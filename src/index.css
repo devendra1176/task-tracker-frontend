@@ -198,6 +198,7 @@ img {
     border-color: rgba(34, 197, 94, 0.22);
 }
 
+
 .message-error {
     background: rgba(239, 68, 68, 0.12);
     color: #f2a7a7;
@@ -541,7 +542,7 @@ img {
     padding: 6px 11px;
     border-radius: 999px;
     font-size: 0.78rem;
-    font-family: "Cormorant Garamond", "EB Garamond", serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', Arial, sans-serif;
     font-weight: 900;
     letter-spacing: 0.06em;
     color: #9fd0ff;
@@ -1296,8 +1297,14 @@ img {
         grid-template-columns: 1fr;
     }
 
+    .dashboard-container.dashboard-layout {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
     .dashboard-stats-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
 
     .dashboard-toolbar-grid {
@@ -1310,11 +1317,6 @@ img {
 
     .task-form-field-wide {
         grid-column: span 2;
-    }
-
-    .dashboard-container.dashboard-layout {
-        grid-template-columns: 1fr;
-        gap: 22px;
     }
 
     .ai-assistant-panel {
@@ -1333,39 +1335,30 @@ img {
 @media (max-width: 768px) {
     .auth-page,
     .dashboard-page {
-        padding: 18px 14px 8px;
+        padding: 16px 12px 8px;
     }
 
-    .auth-brand-panel {
-        padding: 34px 26px 30px;
-        min-height: unset;
+    .dashboard-container {
+        gap: 14px;
     }
 
-    .auth-brand-kicker {
-        font-size: 2.4rem;
-        letter-spacing: 0.14em;
-    }
-
-    .auth-brand-title {
-        font-size: 2.65rem;
-        max-width: 100%;
-    }
-
-    .auth-brand-text {
-        font-size: 0.96rem;
-        line-height: 1.68;
-        max-width: 100%;
-    }
-
-
-
-    .auth-form-panel {
-        padding: 24px 18px 22px;
+    .dashboard-main {
+        gap: 14px;
     }
 
     .dashboard-header {
         flex-direction: column;
         align-items: stretch;
+        gap: 12px;
+        padding-bottom: 12px;
+    }
+
+    .dashboard-title {
+        font-size: 1.75rem;
+    }
+
+    .dashboard-subtitle {
+        font-size: 0.92rem;
     }
 
     .dashboard-header-actions {
@@ -1373,24 +1366,62 @@ img {
     }
 
     .dashboard-pill-button {
-        flex: 1;
+        width: 100%;
+        height: 40px;
     }
 
     .dashboard-stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+    }
+
+    .dashboard-stat-card {
+        min-height: 58px;
+        padding: 10px 8px;
+        border-radius: 12px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .dashboard-stat-label {
+        font-size: 0.7rem;
+    }
+
+    .dashboard-stat-card strong {
+        font-size: 1.25rem;
     }
 
     .dashboard-action-bar {
         flex-direction: column;
         align-items: stretch;
+        padding: 14px;
     }
 
     .dashboard-primary-action {
         width: 100%;
+        height: 42px;
+    }
+
+    .dashboard-form-card,
+    .dashboard-toolbar-card {
+        padding: 14px;
     }
 
     .dashboard-toolbar-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .dashboard-toolbar-grid > :first-child {
+        grid-column: span 2;
+    }
+
+    .dashboard-toolbar-grid > :last-child {
+        grid-column: span 2;
+    }
+
+    .dashboard-toolbar-card .btn {
+        min-height: 42px;
     }
 
     .task-create-grid {
@@ -1401,119 +1432,132 @@ img {
         grid-column: span 1;
     }
 
+    .label {
+        font-size: 0.88rem;
+    }
+
+    .textarea {
+        min-height: 92px;
+    }
+
+    .input,
+    .select,
+    .textarea {
+        font-size:0.95rem;
+        min-height: 44px;
+        padding: 11px 12px;
+    }
+
     .dashboard-task-table-head {
         display: none;
     }
 
+    .dashboard-task-table-header {
+        padding: 14px 16px;
+    }
+
     .dashboard-task-row {
-        grid-template-columns: 1fr;
-        gap: 10px;
-        padding: 16px;
+        grid-template-columns: auto auto 1fr 48px;
+        grid-template-areas:
+            "title title title action"
+            "status priority due due";
+        align-items: center;
+        padding: 14px 16px;
+        gap: 8px;
+    }
+
+    .task-row-title-cell {
+        grid-area: title;
+        font-size: 1rem;
+    }
+
+    .dashboard-task-row > div:nth-child(2) {
+        grid-area: status;
+        display: flex;
+    }
+
+    .dashboard-task-row > div:nth-child(3) {
+        grid-area: priority;
+        display: flex;
+    }
+
+    .task-row-due-cell {
+        grid-area: due;
+        font-size: 0.9rem;
+        color: var(--muted);
+        justify-self: start;
     }
 
     .task-row-action-cell {
-        justify-content: flex-start;
+        grid-area: action;
+        justify-content: flex-end;
     }
 
-    .dashboard-task-row > div:not(.task-row-title-cell):not(.task-row-action-cell) {
-        color: var(--muted);
-        font-size: 0.95rem;
+    .task-row-toggle {
+        width: 42px;
+        height: 42px;
+    }
+
+    .task-chip {
+        min-height: 28px;
+        padding: 5px 10px;
+        font-size: 0.76rem;
     }
 
     .dashboard-task-row-expand {
-        padding: 16px;
+        padding: 14px;
+    }
+
+    .task-detail-block {
+        padding: 12px 14px;
+    }
+
+    .task-detail-text {
+        font-size: 0.9rem;
+        line-height: 1.65;
     }
 
     .task-expanded-actions {
         flex-direction: column;
         align-items: stretch;
+        gap: 12px;
     }
 
     .task-status-actions,
     .task-secondary-actions {
         flex-direction: column;
         align-items: stretch;
+        gap: 10px;
     }
 
-    .compact-select,
     .small-primary-btn,
-    .small-secondary-btn,
-    .small-danger-btn {
-        width: 100%;
-    }
-
-    .compact-select,
-    .small-primary-btn,
-    .small-secondary-btn,
-    .small-danger-btn,
     .small-idle-btn,
-    .small-accent-btn {
-        width: 100%;
-    }
-
-    .small-accent-btn:hover:not(:disabled) {
-        transform: translateY(-1px);
-        filter: brightness(1.03);
-    }
-
-    .small-idle-btn {
-        border: 1px solid var(--border);
-        background: linear-gradient(180deg, #223244 0%, #1a2633 100%);
-        color: #8ea0b3;
-        box-shadow: var(--shadow-card);
-    }
-
-    .small-idle-btn:disabled {
-        opacity: 1;
-        cursor: not-allowed;
-    }
-
-    .small-accent-btn {
-        border: none;
-        background: linear-gradient(180deg, var(--primary) 0%, var(--primary-hover) 100%);
-        color: #ffffff;
-        box-shadow: 0 8px 18px rgba(58, 143, 216, 0.18);
-    }
-
-    .small-accent-btn:hover:not(:disabled) {
-        transform: translateY(-1px);
-        filter: brightness(1.03);
-    }
-
-    .compact-select,
-    .small-primary-btn,
-    .small-secondary-btn,
+    .small-accent-btn,
     .small-danger-btn,
-    .small-idle-btn,
-    .small-accent-btn {
-        width: 100%;
+    .compact-select {
+        min-height: 42px;
+        font-size: 0.95rem;
     }
 
     .dashboard-pagination {
         justify-content: space-between;
         flex-wrap: wrap;
-    }
-
-    .app-footer {
-        padding: 10px 14px 20px;
-    }
-
-    .app-footer__inner {
-        padding-top: 14px;
-    }
-
-    .app-footer__title {
-        font-size: 13.5px;
-    }
-
-    .app-footer__subtitle,
-    .app-footer__link {
-        font-size: 12px;
+        padding: 14px;
     }
 
     .ai-assistant-card {
         padding: 14px;
     }
+
+    .ai-assistant-chat-area {
+        min-height: 120px;
+        max-height: 200px;
+    }
+
+    .ai-textarea {
+        min-height: 72px;
+    }
+
 
     .ai-form-footer,
     .ai-form-footer-actions {
@@ -1522,28 +1566,36 @@ img {
     }
 
     .ai-button-row {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
         width: 100%;
     }
 
     .ai-primary-button,
     .ai-secondary-button {
         width: 100%;
+        min-height: 40px;
     }
 
-    .ai-assistant-chat-area {
-        max-height: 300px;
+    .ai-prompt-chip {
+        min-height: 32px;
+        font-size: 0.75rem;
+    }
+
+    .app-footer {
+        padding: 10px 14px 20px;
     }
 }
 
 @media (max-width: 480px) {
     .auth-brand-kicker {
-        font-size: 1.70rem;
+        font-size: 1.7rem;
         letter-spacing: 0.14em;
     }
 
     .auth-brand-title {
-        font-size: 1.90rem;
+        font-size: 1.9rem;
     }
 
     .auth-feature-row {
@@ -1551,20 +1603,37 @@ img {
     }
 
     .auth-feature-badge {
-        font-size: 0.70rem;
+        font-size: 0.7rem;
         padding: 0 10px;
     }
 
     .auth-note {
-        font-size: 0.7rem; /* Chhoti screen par font thoda kam karein */
+        font-size: 0.7rem;
         gap: 6px;
     }
 
     .dashboard-title {
-        font-size: 1.75rem;
+        font-size: 1.65rem;
+    }
+
+    .dashboard-stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .dashboard-task-row {
+        grid-template-columns: auto auto 1fr 44px;
+        padding: 14px;
     }
 
     .ai-assistant-title {
         font-size: 0.8rem;
+    }
+
+    .btn,
+    .dashboard-primary-action,
+    .ai-primary-button,
+    .ai-secondary-button {
+        min-height: 40px;
+        font-size: 0.95rem;
     }
 }
