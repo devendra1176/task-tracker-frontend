@@ -74,7 +74,7 @@ function AuthPage({ onLogin }) {
           password,
         });
 
-        setMessage(result?.message || "Account created successfully. Please sign in.");
+        setMessage(result?.message || "Account created successfully. Please Login.");
         setAuthMode("login");
       }
     } catch (err) {
@@ -125,7 +125,7 @@ function AuthPage({ onLogin }) {
               <h2>{authMode === "login" ? "Welcome back" : "Create your account"}</h2>
               <p>
                 {authMode === "login"
-                    ? "Sign in to continue managing your tasks."
+                    ? "Login to continue managing your tasks."
                     : "Sign up to start managing your tasks."}
               </p>
             </div>
@@ -227,7 +227,7 @@ function AuthPage({ onLogin }) {
                         ? "Signing in..."
                         : "Creating account..."
                     : authMode === "login"
-                        ? "Sign In"
+                        ? "Login"
                         : "Create Account"}
               </button>
             </form>
@@ -238,7 +238,7 @@ function AuthPage({ onLogin }) {
                   type="button"
                   onClick={() => setAuthMode(authMode === "login" ? "signup" : "login")}
               >
-                {authMode === "login" ? "Create an account" : "Sign in"}
+                {authMode === "login" ? "Create an account" : "Login"}
               </button>
             </div>
 
