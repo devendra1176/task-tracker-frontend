@@ -41,7 +41,9 @@ async function handleResponse(response, fallbackMessage) {
   const result = await parseJsonSafely(response);
 
   if (!response.ok) {
-    throw new Error(result.message || fallbackMessage || `Request failed (${response.status})`);
+    throw new Error(
+        result.message || fallbackMessage || `Request failed (${response.status})`
+    );
   }
 
   return result;
@@ -168,5 +170,8 @@ export async function updateTaskStatus(id, status) {
     headers: getAuthHeaders(),
   });
 
-  return handleResponse(response, `Failed to update task status (${response.status})`);
+  return handleResponse(
+      response,
+      `Failed to update task status (${response.status})`
+  );
 }

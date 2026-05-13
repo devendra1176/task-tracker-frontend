@@ -242,7 +242,8 @@ function AuthPage({ onLogin }) {
               </button>
             </div>
 
-            <div className="auth-note"><span>ⓘ</span>
+            <div class="auth-note">
+              <span>ⓘ</span>
               <span>The first request may take a few seconds while the server starts up. After that, performance is normal. Thanks for your patience.</span>
             </div>
           </section>

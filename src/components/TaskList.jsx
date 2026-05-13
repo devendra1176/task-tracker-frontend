@@ -14,7 +14,14 @@ function formatPriority(priority) {
 
 function formatDueDate(dueDate) {
     if (!dueDate) return "-";
-    return new Date(dueDate).toLocaleDateString();
+
+    // Safe formatting for yyyy-mm-dd strings without timezone issues
+    if (typeof dueDate === "string" && dueDate.includes("-")) {
+        const [year, month, day] = dueDate.split("-");
+        return `${day}/${month}/${year}`;
+    }
+
+    return dueDate;
 }
 
 function getStatusClass(status) {
@@ -37,9 +44,10 @@ function TaskList({
                       actionTaskId,
                       expandedTaskId,
                       onToggleExpand,
-                      selectedStatuses,
+                      statusDrafts,
                       onStatusChange,
                       onUpdateStatus,
+                      onEditTask,
                       onDeleteTask,
                       page,
                       totalPages,
@@ -69,8 +77,9 @@ function TaskList({
                 <div className="dashboard-task-table-body">
                     {tasks.map((task) => {
                         const isExpanded = expandedTaskId === task.id;
-                        const selectedStatus = selectedStatuses[task.id] || task.status;
+                        const selectedStatus = statusDrafts[task.id] || task.status;
                         const isBusy = actionTaskId === task.id;
+                        const hasStatusChanged = selectedStatus !== task.status;
 
                         return (
                             <div key={task.id} className="dashboard-task-row-wrapper">
@@ -89,7 +98,9 @@ function TaskList({
                     </span>
                                     </div>
 
-                                    <div className="task-row-due-cell">{formatDueDate(task.dueDate)}</div>
+                                    <div className="task-row-due-cell">
+                                        {formatDueDate(task.dueDate)}
+                                    </div>
 
                                     <div className="task-row-action-cell">
                                         <button
@@ -104,15 +115,16 @@ function TaskList({
 
                                 {isExpanded && (
                                     <div className="dashboard-task-row-expand">
-                                        <div className="task-expand-description">
-                                            {task.description || "No description"}
+                                        <div className="task-detail-block">
+                                            <p className="task-detail-text">
+                                                {task.description || "No details added for this task yet."}
+                                            </p>
                                         </div>
 
-                                        <div className="task-expand-actions">
-                                            <div className="task-expand-control">
-                                                <label className="task-expand-label">Update Status</label>
+                                        <div className="task-expanded-actions">
+                                            <div className="task-status-actions">
                                                 <select
-                                                    className="select"
+                                                    className="compact-select"
                                                     value={selectedStatus}
                                                     onChange={(e) => onStatusChange(task.id, e.target.value)}
                                                     disabled={isBusy}
@@ -121,21 +133,30 @@ function TaskList({
                                                     <option value="IN_PROGRESS">In Progress</option>
                                                     <option value="DONE">Done</option>
                                                 </select>
-                                            </div>
 
-                                            <div className="task-expand-buttons">
                                                 <button
                                                     type="button"
-                                                    className="btn btn-primary"
+                                                    className={hasStatusChanged ? "small-primary-btn" : "small-idle-btn"}
                                                     onClick={() => onUpdateStatus(task.id, task.status)}
-                                                    disabled={isBusy || selectedStatus === task.status}
+                                                    disabled={isBusy || !hasStatusChanged}
                                                 >
-                                                    {isBusy ? "Saving..." : "Update"}
+                                                    {isBusy ? "Saving..." : "Update Status"}
+                                                </button>
+                                            </div>
+
+                                            <div className="task-secondary-actions">
+                                                <button
+                                                    type="button"
+                                                    className="small-accent-btn"
+                                                    onClick={() => onEditTask(task)}
+                                                    disabled={isBusy}
+                                                >
+                                                    Edit Task
                                                 </button>
 
                                                 <button
                                                     type="button"
-                                                    className="btn btn-danger"
+                                                    className="small-danger-btn"
                                                     onClick={() => onDeleteTask(task.id)}
                                                     disabled={isBusy}
                                                 >

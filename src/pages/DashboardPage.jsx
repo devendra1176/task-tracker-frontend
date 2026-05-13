@@ -4,6 +4,7 @@ import {
   getFilteredTasks,
   searchTasks,
   createTask,
+  updateTask,
   deleteTask,
   updateTaskStatus,
 } from "../services/taskService";
@@ -31,6 +32,7 @@ function DashboardPage({ onLogout }) {
   const [tasks, setTasks] = useState([]);
   const [formData, setFormData] = useState(DEFAULT_FORM);
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const [editingTaskId, setEditingTaskId] = useState(null);
 
   const [searchKeyword, setSearchKeyword] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
@@ -42,7 +44,7 @@ function DashboardPage({ onLogout }) {
   const [appliedPriority, setAppliedPriority] = useState("");
   const [appliedSortOption, setAppliedSortOption] = useState(DEFAULT_SORT);
 
-  const [selectedStatuses, setSelectedStatuses] = useState({});
+  const [statusDrafts, setStatusDrafts] = useState({});
   const [expandedTaskId, setExpandedTaskId] = useState(null);
 
   const [page, setPage] = useState(0);
@@ -55,7 +57,7 @@ function DashboardPage({ onLogout }) {
   });
 
   const [isFetching, setIsFetching] = useState(false);
-  const [isCreating, setIsCreating] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [actionTaskId, setActionTaskId] = useState(null);
 
   const [error, setError] = useState("");
@@ -143,6 +145,7 @@ function DashboardPage({ onLogout }) {
 
   function handleInputChange(e) {
     const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -153,7 +156,42 @@ function DashboardPage({ onLogout }) {
     setFormData(DEFAULT_FORM);
   }
 
-  async function handleCreateTask(e) {
+  function handleOpenCreateTask() {
+    setEditingTaskId(null);
+    setFormData(DEFAULT_FORM);
+    setShowCreateForm(true);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  function handleCloseTaskForm() {
+    setShowCreateForm(false);
+    setEditingTaskId(null);
+    setFormData(DEFAULT_FORM);
+  }
+
+  function handleEditTask(task) {
+    setEditingTaskId(task.id);
+    setShowCreateForm(true);
+
+    setFormData({
+      title: task.title || "",
+      description: task.description || "",
+      status: task.status || "TODO",
+      priority: task.priority || "LOW",
+      dueDate: task.dueDate || "",
+    });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  async function handleTaskSubmit(e) {
     e.preventDefault();
 
     const trimmedTitle = formData.title.trim();
@@ -165,30 +203,41 @@ function DashboardPage({ onLogout }) {
     }
 
     try {
-      setIsCreating(true);
+      setIsSubmitting(true);
       setError("");
 
-      await createTask({
+      const payload = {
         title: trimmedTitle,
         description: trimmedDescription,
         status: formData.status,
         priority: formData.priority,
         dueDate: formData.dueDate || null,
-      });
+      };
 
-      setSuccess("Task created successfully.");
-      resetForm();
+      if (editingTaskId) {
+        await updateTask(editingTaskId, payload);
+        setSuccess("Task updated successfully.");
+      } else {
+        await createTask(payload);
+        setSuccess("Task created successfully.");
+      }
+
+      setFormData(DEFAULT_FORM);
+      setEditingTaskId(null);
       setShowCreateForm(false);
 
-      if (page === 0) {
-        await fetchTasks();
-      } else {
+      if (!editingTaskId && page !== 0) {
         setPage(0);
+      } else {
+        await fetchTasks();
       }
     } catch (err) {
-      setError(err?.message || "Failed to create task.");
+      setError(
+          err?.message ||
+          (editingTaskId ? "Failed to update task." : "Failed to create task.")
+      );
     } finally {
-      setIsCreating(false);
+      setIsSubmitting(false);
     }
   }
 
@@ -214,14 +263,14 @@ function DashboardPage({ onLogout }) {
   }
 
   function handleStatusChange(taskId, value) {
-    setSelectedStatuses((prev) => ({
+    setStatusDrafts((prev) => ({
       ...prev,
       [taskId]: value,
     }));
   }
 
   async function handleUpdateStatus(taskId, currentStatus) {
-    const newStatus = selectedStatuses[taskId] || currentStatus;
+    const newStatus = statusDrafts[taskId] || currentStatus;
 
     if (newStatus === currentStatus) return;
 
@@ -231,7 +280,7 @@ function DashboardPage({ onLogout }) {
 
       await updateTaskStatus(taskId, newStatus);
 
-      setSelectedStatuses((prev) => {
+      setStatusDrafts((prev) => {
         const updated = { ...prev };
         delete updated[taskId];
         return updated;
@@ -257,6 +306,10 @@ function DashboardPage({ onLogout }) {
       await deleteTask(taskId);
 
       setSuccess("Task deleted successfully.");
+
+      if (expandedTaskId === taskId) {
+        setExpandedTaskId(null);
+      }
 
       if (tasks.length === 1 && page > 0) {
         setPage((prev) => prev - 1);
@@ -324,12 +377,14 @@ function DashboardPage({ onLogout }) {
 
             <TaskCreateCard
                 showCreateForm={showCreateForm}
-                onToggle={() => setShowCreateForm((prev) => !prev)}
+                editingTaskId={editingTaskId}
+                onToggle={showCreateForm ? handleCloseTaskForm : handleOpenCreateTask}
+                onClose={handleCloseTaskForm}
                 formData={formData}
                 onInputChange={handleInputChange}
-                onSubmit={handleCreateTask}
+                onSubmit={handleTaskSubmit}
                 onReset={resetForm}
-                isCreating={isCreating}
+                isSubmitting={isSubmitting}
             />
 
             <TaskToolbar
@@ -351,9 +406,10 @@ function DashboardPage({ onLogout }) {
                 actionTaskId={actionTaskId}
                 expandedTaskId={expandedTaskId}
                 onToggleExpand={handleToggleExpand}
-                selectedStatuses={selectedStatuses}
+                statusDrafts={statusDrafts}
                 onStatusChange={handleStatusChange}
                 onUpdateStatus={handleUpdateStatus}
+                onEditTask={handleEditTask}
                 onDeleteTask={handleDeleteTask}
                 page={page}
                 totalPages={pageInfo.totalPages}
