@@ -114,9 +114,11 @@ img {
     box-shadow: 0 8px 18px rgba(58, 143, 216, 0.18);
 }
 
+/* UX Improvement: Stronger hover effect */
 .btn-primary:hover:not(:disabled) {
-    transform: translateY(-1px);
-    filter: brightness(1.03);
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+    box-shadow: 0 12px 24px rgba(58, 143, 216, 0.25);
 }
 
 .btn-secondary {
@@ -420,19 +422,21 @@ img {
     gap: 10px;
 }
 
+/* UX Improvement: Password toggle more visible */
 .auth-password-toggle {
     min-width: 72px;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     background: linear-gradient(180deg, #162432 0%, #1a2b3a 100%);
-    color: var(--text);
-    font-weight: 700;
+    color: var(--primary); /* Blue text makes it look actionable */
+    font-weight: 800;
     padding: 0 16px;
     transition: all 0.2s ease;
 }
 
 .auth-password-toggle:hover:not(:disabled) {
     border-color: var(--border-strong);
+    color: var(--text);
 }
 
 .auth-helper-row {
@@ -506,11 +510,13 @@ img {
     gap: 18px;
 }
 
-.ai-assistant-panel {
-    position: sticky;
-    top: 34px;
-    align-self: start;
-}
+
+
+
+
+/* =========================
+   AI ASSISTANT PANEL - POLISHED
+========================= */
 
 .ai-assistant-card {
     border: 1px solid var(--border);
@@ -523,231 +529,320 @@ img {
     min-height: 660px;
 }
 
-.ai-assistant-header {
-    display: grid;
-    gap: 8px;
-}
-
+/* Header */
 .ai-assistant-header-centered {
     justify-items: center;
     text-align: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .ai-assistant-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: fit-content;
-    min-height: 28px;
-    padding: 6px 11px;
+    min-height: 26px;
+    padding: 4px 10px;
     border-radius: 999px;
-    font-size: 0.78rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', Arial, sans-serif;
-    font-weight: 900;
-    letter-spacing: 0.06em;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
     color: #9fd0ff;
-    background: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.18);
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.2);
 }
 
 .ai-assistant-title {
-    margin: 2px 0 0 0;
-    font-size: 0.87rem;
-    font-weight: 400;
-    font-family: "Bodoni Moda", "Didot", serif;
-    font-style: italic;
-    color: steelblue;
-    letter-spacing: 0.03em;
-}
-
-.ai-assistant-helper-text {
-    margin: 0;
-    color: var(--muted);
-    font-size: 0.84rem;
+    margin: 6px 0 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-soft);
     line-height: 1.4;
 }
 
+/* Chat Area */
 .ai-assistant-chat-area {
-    min-height: 250px;
-    max-height: 300px;
+    min-height: 280px;
+    max-height: 320px;
     overflow-y: auto;
-    padding-right: 4px;
+    padding: 4px 2px;
     display: grid;
     gap: 10px;
+    scroll-behavior: smooth;
 }
 
+/* Scrollbar Styling */
+.ai-assistant-chat-area::-webkit-scrollbar {
+    width: 4px;
+}
+.ai-assistant-chat-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+.ai-assistant-chat-area::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+/* Empty State */
 .ai-empty-state {
-    padding: 14px;
-    border-radius: 14px;
+    padding: 16px;
+    border-radius: 12px;
     border: 1px dashed var(--border);
     color: var(--muted);
-    font-size: 0.92rem;
-    line-height: 1.6;
-    background: rgba(12, 21, 30, 0.45);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    background: rgba(12, 21, 30, 0.4);
+    text-align: center;
 }
 
+.ai-empty-state strong {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* Message Cards - Compact, No Bubbles */
 .ai-message-card {
+    padding: 8px 0;
     display: grid;
+    gap: 4px;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ai-message-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 8px;
-    padding: 14px 15px;
-    border-radius: 14px;
-    border: 1px solid var(--border);
-    background: rgba(12, 21, 30, 0.9);
 }
 
-.ai-message-user {
-    background: rgba(17, 39, 58, 0.92);
-    border-color: rgba(58, 143, 216, 0.26);
+.ai-response-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--primary);
+    text-transform: uppercase;
 }
 
-.ai-message-assistant {
-    background: rgba(12, 21, 30, 0.92);
+.ai-message-time {
+    font-size: 0.7rem;
+    color: var(--muted);
+    opacity: 0.8;
 }
 
+.ai-response-text {
+    margin: 0;
+    color: var(--text-soft);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* User vs Assistant subtle differentiation */
+.ai-message-user .ai-response-label {
+    color: var(--success);
+}
+
+.ai-message-assistant .ai-response-label {
+    color: var(--info);
+}
+
+/* ✨ Typing Indicator Animation */
+.ai-typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 4px 0;
+}
+
+.typing-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--muted);
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+.typing-dot:nth-child(3) { animation-delay: 0s; }
+
+@keyframes typingBounce {
+    0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+    40% { transform: scale(1.2); opacity: 1; }
+}
+
+.ai-assistant-panel {
+    position: sticky;
+    top: 32px;
+    align-self: start;
+    height: fit-content;
+    z-index: 10;
+}
+
+/* Input Area */
 .ai-assistant-form {
     display: grid;
-    gap: 10px;
+    gap: 8px;
 }
 
 .ai-textarea {
     width: 100%;
-    min-height: 110px;
+    min-height: 80px;
     resize: vertical;
-    padding: 12px 16px;
+    padding: 12px 14px;
     border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: rgba(9, 17, 26, 0.82);
+    border-radius: 12px;
+    background: rgba(9, 17, 26, 0.8);
     color: var(--text);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .ai-textarea::placeholder {
-    color: #77889a;
+    color: #5a6a7a;
 }
 
 .ai-textarea:focus {
+    outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(58, 143, 216, 0.14);
+    box-shadow: 0 0 0 2px rgba(58, 143, 216, 0.2);
 }
 
-.ai-form-footer {
+.ai-textarea:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.ai-input-footer {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--muted);
 }
 
-.ai-form-footer-actions {
-    align-items: center;
+.ai-hint {
+    opacity: 0.7;
+    font-style: italic;
 }
 
 .ai-char-count {
-    color: var(--muted);
-    font-size: 0.82rem;
-    justify-self: start;
-    margin-top: -2px;
+    font-weight: 500;
 }
 
+/* Buttons */
 .ai-button-row {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     align-items: center;
 }
 
 .ai-primary-button,
 .ai-secondary-button {
-    min-width: 110px;
-    min-height: 42px;
-    padding: 0 18px;
-    border-radius: 12px;
-    font-weight: 800;
+    flex: 1;
+    min-height: 38px;
+    padding: 0 14px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
 }
 
 .ai-primary-button {
     border: none;
     background: linear-gradient(180deg, var(--primary) 0%, var(--primary-hover) 100%);
-    color: #ffffff;
-    box-shadow: 0 8px 18px rgba(58, 143, 216, 0.18);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(58, 143, 216, 0.2);
 }
 
 .ai-primary-button:hover:not(:disabled) {
     transform: translateY(-1px);
-    filter: brightness(1.03);
+    filter: brightness(1.05);
+    box-shadow: 0 6px 16px rgba(58, 143, 216, 0.3);
 }
 
 .ai-secondary-button {
     border: 1px solid var(--border);
     background: linear-gradient(180deg, var(--surface-soft) 0%, var(--surface) 100%);
     color: var(--text);
-    box-shadow: var(--shadow-card);
 }
 
 .ai-secondary-button:hover:not(:disabled) {
-    transform: translateY(-1px);
     border-color: var(--border-strong);
+    transform: translateY(-1px);
 }
 
 .ai-primary-button:disabled,
-.ai-secondary-button:disabled,
-.ai-prompt-chip:disabled {
-    opacity: 0.65;
+.ai-secondary-button:disabled {
+    opacity: 0.5;
     cursor: not-allowed;
+    transform: none !important;
 }
 
+/* Quick Prompts */
 .ai-quick-prompts {
     display: grid;
-    gap: 10px;
+    gap: 8px;
+    padding-top: 4px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .ai-quick-prompts-label {
-    font-size: 0.8rem;
-    font-weight: 800;
+    font-size: 0.75rem;
+    font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--muted);
 }
 
+.ai-suggested-prompts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
 .ai-prompt-chip {
-    min-height: 36px;
-    padding: 0 12px;
+    min-height: 30px;
+    padding: 0 10px;
     border-radius: 999px;
     border: 1px solid var(--border);
-    background: rgba(18, 30, 42, 0.72);
+    background: rgba(18, 30, 42, 0.6);
     color: var(--text-soft);
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
     transition: all 0.2s ease;
     cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .ai-prompt-chip:hover:not(:disabled) {
+    border-color: var(--primary);
+    background: rgba(58, 143, 216, 0.1);
+    color: var(--text);
     transform: translateY(-1px);
-    border-color: var(--border-strong);
-    background: rgba(24, 38, 52, 0.9);
 }
 
-.ai-response-label {
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: #9db0c5;
+.ai-prompt-chip:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
-.ai-response-text {
-    margin: 0;
-    color: var(--text-soft);
-    font-size: 0.93rem;
-    line-height: 1.72;
-    white-space: pre-wrap;
-    word-break: break-word;
+/* Error Message */
+.message-error {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+    border-radius: 8px;
 }
-
 .dashboard-header {
     display: flex;
     align-items: flex-start;
@@ -886,6 +981,275 @@ img {
     filter: brightness(1.03);
 }
 
+/* =========================
+   UNIFIED TASK CREATE CARD (Doodle Style)
+========================= */
+
+/* The main container that holds both header and form */
+.dashboard-form-card.unified-card {
+    background: #050a12;
+    border: 1px solid #26394d;
+    border-radius: 20px; /* Smooth rounded corners */
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle top gradient accent */
+.dashboard-form-card.unified-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    opacity: 0.5;
+}
+
+/* --- Header Section inside the Card --- */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.header-label {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #a7bdd4; /* Light blue-grey label */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.card-header p {
+    margin: 0;
+    color: #8ea0b3; /* Muted text */
+    font-size: 0.95rem;
+    max-width: 450px;
+    line-height: 1.5;
+}
+
+/* UX Improvement: Close button looks secondary to prevent accidental clicks */
+.close-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: #d2dce7;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* --- Form Layout --- */
+.task-create-form {
+    display: grid;
+    gap: 16px;
+}
+
+/* Group for label + input */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.field-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #edf3f8;
+}
+
+/* --- Input Styling (Pill shape) --- */
+.form-input,
+.form-textarea,
+.form-select {
+    width: 100%;
+    padding: 12px 14px;
+    background: #000000; /* Deep black input background */
+    border: 1px solid #31495f; /* Blue-grey border */
+    border-radius: 12px; /* Pill-like rounding */
+    color: #edf3f8;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: #4a6075;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    outline: none;
+    border-color: #3a8fd8; /* Primary Blue Focus */
+    box-shadow: 0 0 0 2px rgba(58, 143, 216, 0.2);
+}
+
+.form-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* --- Three Column Row (Status, Priority, Date) --- */
+.form-row-three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr; /* Date column slightly wider */
+    gap: 16px;
+    align-items: start;
+}
+
+/* --- Date Column Specifics --- */
+.date-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.date-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+/* This is the input inside the date-input-group */
+.date-input-group .form-input {
+    flex: 1;
+}
+
+/* The [Time] Label annotation */
+.time-label {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    font-family: monospace;
+}
+
+/* Hidden wrapper for the time input to keep DOM clean */
+.hidden-time-wrapper {
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    position: absolute;
+}
+
+/* Suggestions Area */
+.quick-date-actions {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.suggestion-label {
+    color: #d2dce7;
+    font-size: 0.9rem;
+}
+
+.suggestion-arrow-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.suggestion-arrow {
+    font-size: 1.2rem;
+    color: #fff;
+    transform: rotate(-20deg);
+}
+
+.suggestion-text {
+    color: #fff;
+    font-size: 0.85rem;
+    text-decoration: underline;
+}
+
+/* Functional Small Buttons */
+.quick-date-btn-small {
+    background: transparent;
+    border: none;
+    color: #3a8fd8;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.quick-date-btn-small:hover {
+    text-decoration: underline;
+}
+
+/* --- Action Buttons (Create / Reset) --- */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.btn-create {
+    background: #1a73e8; /* Bright Blue */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+    transition: all 0.2s ease;
+}
+
+.btn-create:hover {
+    background: #155ab6;
+    transform: translateY(-1px);
+}
+
+.btn-reset {
+    background: transparent;
+    color: #edf3f8;
+    border: 1px solid #31495f;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-reset:hover {
+    border-color: #5e7a94;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Standalone toggle button when form is hidden */
+.standalone-toggle {
+    margin-bottom: 20px;
+}
+
+/* =========================
+   LEGACY FORM CARD STYLES
+========================= */
+
 .dashboard-form-card,
 .dashboard-toolbar-card,
 .dashboard-task-table-card {
@@ -899,15 +1263,15 @@ img {
     padding: 18px;
 }
 
-.task-create-form {
-    display: grid;
-    gap: 16px;
-}
+/* =========================
+   TASK CREATE FORM - GRID (Old Grid System)
+========================= */
 
 .task-create-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr 2fr;
     gap: 14px;
+    align-items: end;
 }
 
 .task-form-field {
@@ -916,7 +1280,127 @@ img {
 }
 
 .task-form-field-wide {
-    grid-column: span 3;
+    grid-column: 1 / -1;
+}
+
+.date-time-group {
+    display: grid;
+    gap: 10px;
+}
+
+.date-time-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.date-input {
+    flex: 1;
+}
+
+.time-input {
+    width: 140px;
+    flex-shrink: 0;
+}
+
+/* --- Clickable Quick Set Pills --- */
+.quick-set-pills {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.quick-pill-btn {
+    min-width: 72px;
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-size: 0.82rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.quick-pill-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Today Pill - Green Accent */
+.today-pill {
+    background: rgba(34, 197, 94, 0.08);
+    color: #8ed7aa;
+    border-color: rgba(34, 197, 94, 0.25);
+}
+
+.today-pill:hover:not(:disabled) {
+    background: rgba(34, 197, 94, 0.18);
+    border-color: var(--success);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+}
+
+/* Tomorrow Pill - Blue Accent */
+.tomorrow-pill {
+    background: rgba(56, 189, 248, 0.08);
+    color: #7eb4ea;
+    border-color: rgba(56, 189, 248, 0.25);
+}
+
+.tomorrow-pill:hover:not(:disabled) {
+    background: rgba(56, 189, 248, 0.18);
+    border-color: var(--info);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+}
+
+/* --- Date Column Container --- */
+.date-col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.quick-date-actions-legacy {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 38px;
+    flex-wrap: wrap;
+}
+
+.quick-date-btn {
+    min-height: 34px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(9, 17, 26, 0.72);
+    color: var(--text-soft);
+    font-size: 0.84rem;
+    font-weight: 800;
+    transition: all 0.2s ease;
+}
+
+.quick-date-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color: var(--primary);
+    color: var(--text);
+    background: rgba(58, 143, 216, 0.12);
+}
+
+.quick-date-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
 }
 
 .task-form-actions {
@@ -955,7 +1439,9 @@ img {
 
 .dashboard-task-table-head {
     display: grid;
-    grid-template-columns: 2.2fr 1.2fr 1.1fr 1fr 72px;
+    /* Reduced Title width from 2.2fr to 1.8fr */
+    /* Adjusted other columns for better spacing */
+    grid-template-columns: 1.8fr 1fr 0.9fr 1.3fr 60px;
     gap: 12px;
     padding: 14px 18px;
     border-bottom: 1px solid var(--border);
@@ -966,7 +1452,6 @@ img {
     letter-spacing: 0.02em;
     background: rgba(18, 30, 42, 0.6);
 }
-
 .dashboard-task-table-body {
     display: grid;
 }
@@ -981,7 +1466,8 @@ img {
 
 .dashboard-task-row {
     display: grid;
-    grid-template-columns: 2.2fr 1.2fr 1.1fr 1fr 72px;
+    /* Same as header */
+    grid-template-columns: 1.8fr 1fr 0.9fr 1.3fr 60px;
     gap: 12px;
     align-items: center;
     padding: 16px 18px;
@@ -989,8 +1475,10 @@ img {
     transition: background 0.2s ease;
 }
 
+/* UX Improvement: Better hover effect for table rows */
 .dashboard-task-row:hover {
-    background: rgba(24, 38, 52, 0.56);
+    background: rgba(58, 143, 216, 0.05); /* Subtle blue tint */
+    cursor: pointer;
 }
 
 .task-row-title-cell {
@@ -999,8 +1487,15 @@ img {
     word-break: break-word;
 }
 
+/* UX Improvement: Date cell highlighted slightly for readability */
 .task-row-due-cell {
     color: var(--text-soft);
+    white-space: nowrap;
+    font-size: 0.92rem;
+    font-weight: 500;
+    padding: 4px 8px; /* Breathing room */
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03); /* Subtle contrast */
 }
 
 .task-chip {
@@ -1315,8 +1810,13 @@ img {
         grid-template-columns: 1fr 1fr;
     }
 
-    .task-form-field-wide {
-        grid-column: span 2;
+    .task-form-field-wide,
+    .date-time-group {
+        grid-column: 1 / -1;
+    }
+
+    .date-time-row {
+        grid-template-columns: 1fr 1fr;
     }
 
     .ai-assistant-panel {
@@ -1424,12 +1924,22 @@ img {
         min-height: 42px;
     }
 
-    .task-create-grid {
+    /* Unified Card Mobile Adjustments */
+    .card-header {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .close-btn {
+        width: 100%;
+    }
+
+    .form-row-three-col {
         grid-template-columns: 1fr;
     }
 
-    .task-form-field-wide {
-        grid-column: span 1;
+    .quick-date-actions {
+        min-height: auto;
     }
 
     .label {
@@ -1547,40 +2057,21 @@ img {
 
     .ai-assistant-card {
         padding: 14px;
+        min-height: auto;
     }
 
     .ai-assistant-chat-area {
-        min-height: 120px;
-        max-height: 200px;
-    }
-
-    .ai-textarea {
-        min-height: 72px;
-    }
-
-
-    .ai-form-footer,
-    .ai-form-footer-actions {
-        flex-direction: column;
-        align-items: stretch;
+        min-height: 200px;
+        max-height: 240px;
     }
 
     .ai-button-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        width: 100%;
+        flex-direction: column;
     }
 
     .ai-primary-button,
     .ai-secondary-button {
         width: 100%;
-        min-height: 40px;
-    }
-
-    .ai-prompt-chip {
-        min-height: 32px;
-        font-size: 0.75rem;
     }
 
     .app-footer {
@@ -1623,6 +2114,19 @@ img {
     .dashboard-task-row {
         grid-template-columns: auto auto 1fr 44px;
         padding: 14px;
+    }
+
+    .date-time-row {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-date-actions {
+        gap: 8px;
+    }
+
+    .quick-date-btn {
+        min-height: 36px;
+        padding: 0 13px;
     }
 
     .ai-assistant-title {
