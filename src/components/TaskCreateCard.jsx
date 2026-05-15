@@ -8,81 +8,82 @@ function TaskCreateCard({
                             onSubmit,
                             onReset,
                             isSubmitting,
+                            onQuickDate,
+                            todayDate,
+                            tomorrowDate,
                         }) {
     const isEditMode = Boolean(editingTaskId);
 
     return (
         <section className="dashboard-section">
-            <div className="dashboard-action-bar">
-                <div className="dashboard-action-bar-text">
-          <span className="dashboard-action-bar-label">
-            {isEditMode ? "Edit Task" : "Quick Action"}
-          </span>
-
-                    <p>
-                        {isEditMode
-                            ? "Update the selected task without leaving your current workflow."
-                            : "Create a new task without leaving your current workflow."}
-                    </p>
-                </div>
-
-                <button
-                    type="button"
-                    className="dashboard-primary-action"
-                    onClick={onToggle}
-                >
-                    {showCreateForm
-                        ? isEditMode
-                            ? "Cancel Editing"
-                            : "Close Task Form"
-                        : "+ New Task"}
-                </button>
-            </div>
-
             {showCreateForm && (
-                <div className="dashboard-form-card">
+                <div className="dashboard-form-card unified-card">
+
+                    {/* --- Card Header --- */}
+                    <div className="card-header">
+                        <div className="header-text">
+                            <span className="header-label">
+                                {isEditMode ? "Edit Task" : "QUICK ACTION"}
+                            </span>
+                            <p>
+                                {isEditMode
+                                    ? "Update the selected task without leaving your current workflow."
+                                    : "Create a new task without leaving your current workflow."}
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            className="close-btn"
+                            onClick={onToggle}
+                            disabled={isSubmitting}
+                        >
+                            {isEditMode ? "Cancel Editing" : "Close Task Form"}
+                        </button>
+                    </div>
+
+                    {/* --- Form Body --- */}
                     <form className="task-create-form" onSubmit={onSubmit}>
-                        <div className="task-create-grid">
-                            <div className="task-form-field task-form-field-wide">
-                                <label className="label" htmlFor="title">
-                                    Title
-                                </label>
-                                <input
-                                    id="title"
-                                    className="input"
-                                    type="text"
-                                    name="title"
-                                    value={formData.title}
-                                    onChange={onInputChange}
-                                    placeholder="Enter task title"
-                                    disabled={isSubmitting}
-                                    required
-                                />
-                            </div>
 
-                            <div className="task-form-field task-form-field-wide">
-                                <label className="label" htmlFor="description">
-                                    Description
-                                </label>
-                                <textarea
-                                    id="description"
-                                    className="textarea"
-                                    name="description"
-                                    value={formData.description}
-                                    onChange={onInputChange}
-                                    placeholder="Enter task details"
-                                    disabled={isSubmitting}
-                                    required
-                                />
-                            </div>
+                        {/* Title Field */}
+                        <div className="form-group">
+                            <label className="field-label" htmlFor="title">Title</label>
+                            <input
+                                id="title"
+                                className="form-input"
+                                type="text"
+                                name="title"
+                                value={formData.title}
+                                onChange={onInputChange}
+                                placeholder="Enter task title"
+                                disabled={isSubmitting}
+                                required
+                            />
+                        </div>
 
-                            <div className="task-form-field">
-                                <label className="label" htmlFor="status">
-                                    Status
-                                </label>
+                        {/* Description Field */}
+                        <div className="form-group">
+                            <label className="field-label" htmlFor="description">Description</label>
+                            <textarea
+                                id="description"
+                                className="form-textarea"
+                                name="description"
+                                value={formData.description}
+                                onChange={onInputChange}
+                                placeholder="Enter task details"
+                                disabled={isSubmitting}
+                                required
+                            />
+                        </div>
+
+                        {/* Row: Status, Priority, Due Date + Time */}
+                        <div className="form-row-three-col">
+
+                            {/* Status */}
+                            <div className="form-col">
+                                <label className="field-label" htmlFor="status">Status</label>
                                 <select
                                     id="status"
-                                    className="select"
+                                    className="form-select"
                                     name="status"
                                     value={formData.status}
                                     onChange={onInputChange}
@@ -94,13 +95,12 @@ function TaskCreateCard({
                                 </select>
                             </div>
 
-                            <div className="task-form-field">
-                                <label className="label" htmlFor="priority">
-                                    Priority
-                                </label>
+                            {/* Priority */}
+                            <div className="form-col">
+                                <label className="field-label" htmlFor="priority">Priority</label>
                                 <select
                                     id="priority"
-                                    className="select"
+                                    className="form-select"
                                     name="priority"
                                     value={formData.priority}
                                     onChange={onInputChange}
@@ -112,59 +112,87 @@ function TaskCreateCard({
                                 </select>
                             </div>
 
-                            <div className="task-form-field">
-                                <label className="label" htmlFor="dueDate">
-                                    Due Date
-                                </label>
-                                <input
-                                    id="dueDate"
-                                    className="input"
-                                    type="date"
-                                    name="dueDate"
-                                    value={formData.dueDate}
-                                    onChange={onInputChange}
-                                    disabled={isSubmitting}
-                                />
+                            {/* Date & Time + Quick Suggestions */}
+                            <div className="form-col date-col">
+                                <label className="field-label">Due Date & Time</label>
+
+                                <div className="date-time-row">
+                                    <input
+                                        id="dueDate"
+                                        className="form-input date-input"
+                                        type="date"
+                                        name="dueDate"
+                                        value={formData.dueDate}
+                                        onChange={onInputChange}
+                                        disabled={isSubmitting}
+                                    />
+                                    <input
+                                        id="dueTime"
+                                        className="form-input time-input"
+                                        type="time"
+                                        name="dueTime"
+                                        value={formData.dueTime}
+                                        onChange={onInputChange}
+                                        disabled={isSubmitting}
+                                    />
+                                </div>
+
+                                {/* Clickable Pills (Quick Set) */}
+                                <div className="quick-set-pills">
+                                    <button
+                                        type="button"
+                                        className="quick-pill-btn today-pill"
+                                        onClick={() => onQuickDate(todayDate)}
+                                        disabled={isSubmitting}
+                                    >
+                                        Today
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="quick-pill-btn tomorrow-pill"
+                                        onClick={() => onQuickDate(tomorrowDate)}
+                                        disabled={isSubmitting}
+                                    >
+                                        Tomorrow
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="task-form-actions">
+                        {/* Footer Buttons */}
+                        <div className="form-actions">
                             <button
                                 type="submit"
-                                className="btn btn-primary"
+                                className="btn-create"
                                 disabled={isSubmitting}
                             >
                                 {isSubmitting
-                                    ? isEditMode
-                                        ? "Updating..."
-                                        : "Creating..."
-                                    : isEditMode
-                                        ? "Update Task"
-                                        : "Create Task"}
+                                    ? isEditMode ? "Updating..." : "Creating..."
+                                    : isEditMode ? "Update Task" : "Create Task"}
                             </button>
 
-                            {isEditMode ? (
-                                <button
-                                    type="button"
-                                    className="btn btn-secondary"
-                                    onClick={onClose}
-                                    disabled={isSubmitting}
-                                >
-                                    Cancel
-                                </button>
-                            ) : (
-                                <button
-                                    type="button"
-                                    className="btn btn-secondary"
-                                    onClick={onReset}
-                                    disabled={isSubmitting}
-                                >
-                                    Reset
-                                </button>
-                            )}
+                            <button
+                                type="button"
+                                className="btn-reset"
+                                onClick={isEditMode ? onClose : onReset}
+                                disabled={isSubmitting}
+                            >
+                                Reset
+                            </button>
                         </div>
                     </form>
                 </div>
+            )}
+
+            {/* Toggle Button (When form is closed) */}
+            {!showCreateForm && (
+                <button
+                    type="button"
+                    className="dashboard-primary-action standalone-toggle"
+                    onClick={onToggle}
+                >
+                    + New Task
+                </button>
             )}
         </section>
     );

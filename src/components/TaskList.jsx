@@ -12,16 +12,45 @@ function formatPriority(priority) {
     return priority;
 }
 
-function formatDueDate(dueDate) {
+function formatTime12Hour(time24) {
+    if (!time24) return "";
+
+    // Handle both "HH:mm:ss" and "HH:mm" formats
+    const parts = time24.split(":");
+    if (parts.length < 2) return time24;
+
+    let hours = parseInt(parts[0], 10);
+    const minutes = parts[1];
+    const ampm = hours >= 12 ? "pm" : "am";
+
+    // Convert to 12-hour format
+    hours = hours % 12;
+    hours = hours ? hours : 12; // 0 should be 12
+
+    // Pad minutes with zero if needed
+    const minutesPadded = minutes.padStart(2, '0');
+
+    return `${hours}:${minutesPadded} ${ampm}`;
+}
+
+function formatDueDateTime(dueDate, dueTime) {
     if (!dueDate) return "-";
 
-    // Safe formatting for yyyy-mm-dd strings without timezone issues
+    let formattedDate = dueDate;
+
+    // Format date from yyyy-mm-dd to dd/mm/yyyy
     if (typeof dueDate === "string" && dueDate.includes("-")) {
         const [year, month, day] = dueDate.split("-");
-        return `${day}/${month}/${year}`;
+        formattedDate = `${day}/${month}/${year}`;
     }
 
-    return dueDate;
+    // If time exists, format it to 12-hour format and show both
+    if (dueTime) {
+        const formattedTime = formatTime12Hour(dueTime);
+        return `${formattedDate} ${formattedTime}`;
+    }
+
+    return formattedDate;
 }
 
 function getStatusClass(status) {
@@ -87,19 +116,19 @@ function TaskList({
                                     <div className="task-row-title-cell">{task.title}</div>
 
                                     <div>
-                    <span className={getStatusClass(task.status)}>
-                      {formatStatus(task.status)}
-                    </span>
+                                        <span className={getStatusClass(task.status)}>
+                                            {formatStatus(task.status)}
+                                        </span>
                                     </div>
 
                                     <div>
-                    <span className={getPriorityClass(task.priority)}>
-                      {formatPriority(task.priority)}
-                    </span>
+                                        <span className={getPriorityClass(task.priority)}>
+                                            {formatPriority(task.priority)}
+                                        </span>
                                     </div>
 
                                     <div className="task-row-due-cell">
-                                        {formatDueDate(task.dueDate)}
+                                        {formatDueDateTime(task.dueDate, task.dueTime)}
                                     </div>
 
                                     <div className="task-row-action-cell">
@@ -184,8 +213,8 @@ function TaskList({
                     </button>
 
                     <span className="dashboard-pagination-info">
-            Page {page + 1} of {totalPages}
-          </span>
+                        Page {page + 1} of {totalPages}
+                    </span>
 
                     <button
                         type="button"

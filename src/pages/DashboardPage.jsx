@@ -19,13 +19,21 @@ const DEFAULT_FORM = {
   status: "TODO",
   priority: "LOW",
   dueDate: "",
+  dueTime: "",
 };
 
 const DEFAULT_SORT = "id-desc";
+const PAGE_SIZE = 5;
 
 function parseSortOption(sortOption) {
   const [sortBy = "id", direction = "desc"] = sortOption.split("-");
   return { sortBy, direction };
+}
+
+function getFormattedDate(daysToAdd = 0) {
+  const date = new Date();
+  date.setDate(date.getDate() + daysToAdd);
+  return date.toISOString().split("T")[0];
 }
 
 function DashboardPage({ onLogout }) {
@@ -48,7 +56,6 @@ function DashboardPage({ onLogout }) {
   const [expandedTaskId, setExpandedTaskId] = useState(null);
 
   const [page, setPage] = useState(0);
-  const pageSize = 5;
 
   const [pageInfo, setPageInfo] = useState({
     totalElements: 0,
@@ -63,6 +70,9 @@ function DashboardPage({ onLogout }) {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  const todayDate = useMemo(() => getFormattedDate(0), []);
+  const tomorrowDate = useMemo(() => getFormattedDate(1), []);
+
   const fetchTasks = useCallback(async () => {
     try {
       setIsFetching(true);
@@ -76,14 +86,14 @@ function DashboardPage({ onLogout }) {
         result = await searchTasks({
           keyword: appliedSearch.trim(),
           page,
-          size: pageSize,
+          size: PAGE_SIZE,
           sortBy,
           direction,
         });
       } else if (appliedStatus || appliedPriority) {
         result = await getFilteredTasks({
           page,
-          size: pageSize,
+          size: PAGE_SIZE,
           sortBy,
           direction,
           status: appliedStatus || undefined,
@@ -92,7 +102,7 @@ function DashboardPage({ onLogout }) {
       } else {
         result = await getAllTasks({
           page,
-          size: pageSize,
+          size: PAGE_SIZE,
           sortBy,
           direction,
         });
@@ -152,6 +162,13 @@ function DashboardPage({ onLogout }) {
     }));
   }
 
+  function handleQuickDate(dateValue) {
+    setFormData((prev) => ({
+      ...prev,
+      dueDate: dateValue,
+    }));
+  }
+
   function resetForm() {
     setFormData(DEFAULT_FORM);
   }
@@ -160,11 +177,7 @@ function DashboardPage({ onLogout }) {
     setEditingTaskId(null);
     setFormData(DEFAULT_FORM);
     setShowCreateForm(true);
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function handleCloseTaskForm() {
@@ -183,12 +196,10 @@ function DashboardPage({ onLogout }) {
       status: task.status || "TODO",
       priority: task.priority || "LOW",
       dueDate: task.dueDate || "",
+      dueTime: task.dueTime ? task.dueTime.slice(0, 5) : "",
     });
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   async function handleTaskSubmit(e) {
@@ -212,6 +223,7 @@ function DashboardPage({ onLogout }) {
         status: formData.status,
         priority: formData.priority,
         dueDate: formData.dueDate || null,
+        dueTime: formData.dueTime || null,
       };
 
       if (editingTaskId) {
@@ -254,7 +266,6 @@ function DashboardPage({ onLogout }) {
     setStatusFilter("");
     setPriorityFilter("");
     setSortOption(DEFAULT_SORT);
-
     setPage(0);
     setAppliedSearch("");
     setAppliedStatus("");
@@ -304,7 +315,6 @@ function DashboardPage({ onLogout }) {
       setError("");
 
       await deleteTask(taskId);
-
       setSuccess("Task deleted successfully.");
 
       if (expandedTaskId === taskId) {
@@ -385,6 +395,9 @@ function DashboardPage({ onLogout }) {
                 onSubmit={handleTaskSubmit}
                 onReset={resetForm}
                 isSubmitting={isSubmitting}
+                onQuickDate={handleQuickDate}
+                todayDate={todayDate}
+                tomorrowDate={tomorrowDate}
             />
 
             <TaskToolbar
@@ -414,7 +427,7 @@ function DashboardPage({ onLogout }) {
                 page={page}
                 totalPages={pageInfo.totalPages}
                 isLastPage={pageInfo.last}
-                onPrevPage={() => setPage((prev) => prev - 1)}
+                onPrevPage={() => setPage((prev) => Math.max(prev - 1, 0))}
                 onNextPage={() => setPage((prev) => prev + 1)}
             />
           </main>
