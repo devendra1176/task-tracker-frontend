@@ -55,8 +55,6 @@ function TaskToolbar({
                     <option value="title-desc">Title Z-A</option>
                     <option value="dueDate-asc">Due Date ↑</option>
                     <option value="dueDate-desc">Due Date ↓</option>
-                    <option value="dueTime-asc">Due Time ↑</option>
-                    <option value="dueTime-desc">Due Time ↓</option>
                 </select>
 
                 <button type="button" className="btn btn-primary" onClick={onApply}>
