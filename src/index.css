@@ -469,15 +469,15 @@ img {
 }
 
 .auth-note {
-    display: flex;
-    align-items: flex-start; /* Ensures icon stays at the top of the text block */
-    gap: 12px;               /* Increased from 8px for better breathing room */
-    margin-top: 20px;
-    font-weight: 400;
-    font-size: 0.78rem;
-    line-height: 1.5;
-    color: var(--shadow-soft);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #94a3b8; /* slate-400 */
+  letter-spacing: 0.02em;
 }
 
 /* =========================
@@ -2098,10 +2098,10 @@ img {
         padding: 0 10px;
     }
 
-    .auth-note {
-        font-size: 0.7rem;
-        gap: 6px;
-    }
+    .auth-note span:first-child {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
 
     .dashboard-title {
         font-size: 1.65rem;
