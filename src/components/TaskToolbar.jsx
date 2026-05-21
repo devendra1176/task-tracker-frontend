@@ -48,13 +48,13 @@ function TaskToolbar({
                     value={sortOption}
                     onChange={(e) => onSortChange(e.target.value)}
                 >
-                    <option value="id-desc">Sort</option>
+                    <option value="dueDateTime-asc">Sort</option>
                     <option value="id-desc">Latest</option>
                     <option value="id-asc">Oldest</option>
                     <option value="title-asc">Title A-Z</option>
                     <option value="title-desc">Title Z-A</option>
-                    <option value="dueDate-asc">Due Date ↑</option>
-                    <option value="dueDate-desc">Due Date ↓</option>
+                    <option value="dueDateTime-asc">Due Date & Time ↑</option>
+                    <option value="dueDateTime-desc">Due Date & Time ↓</option>
                 </select>
 
                 <button type="button" className="btn btn-primary" onClick={onApply}>
