@@ -22,8 +22,8 @@ const DEFAULT_FORM = {
   dueTime: "",
 };
 
-const DEFAULT_SORT = "id-desc";
-const PAGE_SIZE = 5;
+const DEFAULT_SORT = "dueDateTime-asc";
+const PAGE_SIZE = 10;
 
 function parseSortOption(sortOption) {
   const [sortBy = "id", direction = "desc"] = sortOption.split("-");
