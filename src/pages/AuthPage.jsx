@@ -7,7 +7,6 @@ function AuthPage({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -85,171 +84,179 @@ function AuthPage({ onLogin }) {
   }
 
   return (
-      <div className="auth-page">
-        <div className="auth-shell">
-          <section className="auth-brand-panel">
-            <div className="auth-brand-kicker">TASK TRACKER</div>
+    <div className="auth-page">
+      <div className="auth-shell">
+        <section className="auth-brand-panel">
+  {/* 1. The Shimmering AI Label (Eyebrow) */}
+  <div className="auth-brand-shimmer-label">
+    ✦AI Powered
+  </div>
 
-            <h1 className="auth-brand-title">
-              Clarity for your work.
-              <br />
+  {/* 2. Main Title */}
+  <h1 className="auth-brand-title">
+    TASK TRACKER
+  </h1>
 
-              Control for your day.
-            </h1>
+  {/* 3. Tagline */}
+  <h2 className="auth-brand-tagline">
+    Smart planning.<br />
+    AI-guided execution.
+  </h2>
 
-            <p className="auth-brand-text">
-              <div>Organize tasks, track priorities, and use</div>
-              <div>AI guidance in one focused workspace.</div>
+  {/* 4. Description */}
+  <p className="auth-brand-text">
+    Organize tasks, track priorities, and get intelligent
+    recommendations to boost your productivity.
+  </p>
+
+  {/* 5. Feature Badges (Keep these, they are good) */}
+  <div className="auth-feature-row">
+    <span className="auth-feature-badge">
+      <span className="auth-feature-dot" style={{ color: '#d8ff92' }} />
+      Secure
+    </span>
+
+    <span className="auth-feature-badge">
+      <span className="auth-feature-dot" style={{ color: '#ffd569' }} />
+      Smart Priorities
+    </span>
+
+    <span className="auth-feature-badge">
+      <span className="auth-feature-dot" style={{ color: '#8ff7ff' }} />
+      AI Assistant
+    </span>
+  </div>
+</section>
+
+        <section className="auth-form-panel">
+          <div className="auth-form-header">
+            <h2>{authMode === "login" ? "Welcome back" : "Create your account"}</h2>
+            <p>
+              {authMode === "login"
+                ? "Login to continue managing your tasks."
+                : "Sign up to start managing your tasks."}
             </p>
+          </div>
 
-            <div className="auth-feature-row">
-            <span className="auth-feature-badge auth-feature-badge-secure">
-              <span className="auth-feature-dot" />
-              Secure
-            </span>
+          <div className="auth-mode-switch">
+            <button
+              type="button"
+              className={`auth-mode-btn ${authMode === "login" ? "active" : ""}`}
+              onClick={() => setAuthMode("login")}
+            >
+              Login
+            </button>
 
-              <span className="auth-feature-badge auth-feature-badge-priority">
-              <span className="auth-feature-dot" />
-              Priorities
-            </span>
+            <button
+              type="button"
+              className={`auth-mode-btn ${authMode === "signup" ? "active" : ""}`}
+              onClick={() => setAuthMode("signup")}
+            >
+              Sign Up
+            </button>
+          </div>
 
-              <span className="auth-feature-badge auth-feature-badge-ai">
-              <span className="auth-feature-dot" />
-              AI Help
-            </span>
-            </div>
-          </section>
+          {message && <div className="message message-success">{message}</div>}
+          {error && <div className="message message-error">{error}</div>}
 
-          <section className="auth-form-panel">
-            <div className="auth-form-header">
-              <h2>{authMode === "login" ? "Welcome back" : "Create your account"}</h2>
-              <p>
-                {authMode === "login"
-                    ? "Login to continue managing your tasks."
-                    : "Sign up to start managing your tasks."}
-              </p>
-            </div>
-
-            <div className="auth-mode-switch">
-              <button
-                  type="button"
-                  className={`auth-mode-btn ${authMode === "login" ? "active" : ""}`}
-                  onClick={() => setAuthMode("login")}
-              >
-                Login
-              </button>
-
-              <button
-                  type="button"
-                  className={`auth-mode-btn ${authMode === "signup" ? "active" : ""}`}
-                  onClick={() => setAuthMode("signup")}
-              >
-                Sign Up
-              </button>
-            </div>
-
-            {message && <div className="message message-success">{message}</div>}
-            {error && <div className="message message-error">{error}</div>}
-
-            <form className="auth-form" onSubmit={handleSubmit}>
-              {authMode === "signup" && (
-                  <div className="auth-field">
-                    <label className="label" htmlFor="username">
-                      Username
-                    </label>
-                    <input
-                        id="username"
-                        className="input"
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Enter your username"
-                        disabled={loading}
-                    />
-                  </div>
-              )}
-
+          <form className="auth-form" onSubmit={handleSubmit}>
+            {authMode === "signup" && (
               <div className="auth-field">
-                <label className="label" htmlFor="email">
-                  Email
+                <label className="label" htmlFor="username">
+                  Username
                 </label>
                 <input
-                    id="email"
-                    className="input"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@example.com"
-                    disabled={loading}
+                  id="username"
+                  className="input"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter your username"
+                  disabled={loading}
                 />
               </div>
+            )}
 
-              <div className="auth-field">
-                <label className="label" htmlFor="password">
-                  Password
-                </label>
+            <div className="auth-field">
+              <label className="label" htmlFor="email">
+                Email
+              </label>
+              <input
+                id="email"
+                className="input"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                disabled={loading}
+              />
+            </div>
 
-                <div className="auth-password-row">
-                  <input
-                      id="password"
-                      className="input"
-                      type={showPassword ? "text" : "password"}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Enter your password"
-                      disabled={loading}
-                  />
+            <div className="auth-field">
+              <label className="label" htmlFor="password">
+                Password
+              </label>
 
-                  <button
-                      type="button"
-                      className="auth-password-toggle"
-                      onClick={() => setShowPassword((prev) => !prev)}
-                      disabled={loading}
-                  >
-                    {showPassword ? "Hide" : "Show"}
-                  </button>
-                </div>
-              </div>
+              <div className="auth-password-row">
+                <input
+                  id="password"
+                  className="input"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  disabled={loading}
+                />
 
-              <div className="auth-helper-row">
                 <button
-                    type="button"
-                    className="auth-helper-link"
-                    onClick={() => setError("Forgot password is not available yet.")}
+                  type="button"
+                  className="auth-password-toggle"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  disabled={loading}
                 >
-                  Forgot password?
+                  {showPassword ? "Hide" : "Show"}
                 </button>
               </div>
+            </div>
 
-              <button className="btn btn-primary btn-full" type="submit" disabled={loading}>
-                {loading
-                    ? authMode === "login"
-                        ? "Signing in..."
-                        : "Creating account..."
-                    : authMode === "login"
-                        ? "Login"
-                        : "Create Account"}
-              </button>
-            </form>
-
-            <div className="auth-footer">
-              {authMode === "login" ? "New here? " : "Already have an account? "}
+            <div className="auth-helper-row">
               <button
-                  type="button"
-                  onClick={() => setAuthMode(authMode === "login" ? "signup" : "login")}
+                type="button"
+                className="auth-helper-link"
+                onClick={() => setError("Forgot password is not available yet.")}
               >
-                {authMode === "login" ? "Create an account" : "Login"}
+                Forgot password?
               </button>
             </div>
 
-            <div className="auth-note">
-              <span>🔒</span>
-              <span>Secure & Private</span>
-            </div>
+            <button className="btn btn-primary btn-full" type="submit" disabled={loading}>
+              {loading
+                ? authMode === "login"
+                  ? "Signing in..."
+                  : "Creating account..."
+                : authMode === "login"
+                ? "Login"
+                : "Create Account"}
+            </button>
+          </form>
 
-          </section>
-        </div>
+          <div className="auth-footer">
+            {authMode === "login" ? "New here? " : "Already have an account? "}
+            <button
+              type="button"
+              onClick={() => setAuthMode(authMode === "login" ? "signup" : "login")}
+            >
+              {authMode === "login" ? "Create an account" : "Login"}
+            </button>
+          </div>
+
+          <div className="auth-note">
+            <span>🔒</span>
+            <span>Secure & Private</span>
+          </div>
+        </section>
       </div>
+    </div>
   );
 }
 
