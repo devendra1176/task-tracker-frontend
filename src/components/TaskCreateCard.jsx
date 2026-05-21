@@ -184,16 +184,6 @@ function TaskCreateCard({
                 </div>
             )}
 
-            {/* Toggle Button (When form is closed) */}
-            {!showCreateForm && (
-                <button
-                    type="button"
-                    className="dashboard-primary-action standalone-toggle"
-                    onClick={onToggle}
-                >
-                    + New Task
-                </button>
-            )}
         </section>
     );
 }
