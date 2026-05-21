@@ -64,8 +64,8 @@ function buildUrl(baseUrl, paramsObj = {}) {
 
 export async function getAllTasks({
                                     page = 0,
-                                    size = 5,
-                                    sortBy = "id",
+                                    size = 10,
+                                    sortBy = "dueDateTime",
                                     direction = "asc",
                                   } = {}) {
   const url = buildUrl(TASK_BASE_URL, {
@@ -85,8 +85,8 @@ export async function getAllTasks({
 
 export async function getFilteredTasks({
                                          page = 0,
-                                         size = 5,
-                                         sortBy = "id",
+                                         size = 10,
+                                         sortBy = "dueDateTime",
                                          direction = "asc",
                                          status,
                                          priority,
@@ -111,8 +111,8 @@ export async function getFilteredTasks({
 export async function searchTasks({
                                     keyword,
                                     page = 0,
-                                    size = 5,
-                                    sortBy = "id",
+                                    size = 10,
+                                    sortBy = "dueDateTime",
                                     direction = "asc",
                                   } = {}) {
   const url = buildUrl(`${TASK_BASE_URL}/search`, {
