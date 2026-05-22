@@ -393,20 +393,28 @@ function DashboardPage({ onLogout }) {
             tomorrowDate={tomorrowDate}
           />
 
-          {/* 5. Modern Toolbar (Includes New Task Button) */}
-          <TaskToolbar
-            searchKeyword={searchKeyword}
-            statusFilter={statusFilter}
-            priorityFilter={priorityFilter}
-            sortOption={sortOption}
-            onSearchChange={setSearchKeyword}
-            onStatusChange={setStatusFilter}
-            onPriorityChange={setPriorityFilter}
-            onSortChange={setSortOption}
-            onApply={handleApplyToolbar}
-            onReset={handleResetToolbar}
-            onNewTask={handleOpenCreateTask} // 🔥 PASSED HERE
-          />
+        {/* 5. Toolbar Row: Filters + Apply + New Task (Aligned) */}
+        <div className="toolbar-row-wrapper">
+        <TaskToolbar
+          searchKeyword={searchKeyword}
+          statusFilter={statusFilter}
+          priorityFilter={priorityFilter}
+          sortOption={sortOption}
+          onSearchChange={setSearchKeyword}
+          onStatusChange={setStatusFilter}
+          onPriorityChange={setPriorityFilter}
+          onSortChange={setSortOption}
+          onApply={handleApplyToolbar}
+          onReset={handleResetToolbar}
+        />
+        
+        <button type="button" className="toolbar-btn toolbar-btn-new standalone-new-task" onClick={handleOpenCreateTask}>
+          <svg className="toolbar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+          <span>New Task</span>
+        </button>
+      </div>
 
           {/* 6. Task List */}
           <TaskList
