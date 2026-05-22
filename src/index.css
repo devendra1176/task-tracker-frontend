@@ -1,40 +1,34 @@
 /* =========================
-   ROOT VARIABLES & THEME
-   ========================= */
+ROOT VARIABLES & THEME
+========================= */
 :root {
   --bg: #08111a;
   --bg-elevated: #0d1722;
   --surface: #111c29;
   --surface-soft: #162230;
   --surface-muted: #1d2a39;
-
   --text: #edf3f8;
   --text-soft: #d2dce7;
   --muted: #8ea0b3;
-
   --border: #26394d;
   --border-strong: #31495f;
-
   --primary: #3a8fd8;
   --primary-hover: #2f7ec2;
-
   --success: #22c55e;
   --danger: #ef4444;
   --warning: #f59e0b;
   --info: #38bdf8;
-
   --shadow: 0 18px 40px rgba(0, 0, 0, 0.34);
   --shadow-soft: 0 10px 24px rgba(0, 0, 0, 0.22);
   --shadow-card: 0 8px 18px rgba(0, 0, 0, 0.18);
-
   --radius-lg: 22px;
   --radius-md: 16px;
   --radius-sm: 12px;
 }
 
 /* =========================
-   GLOBAL RESETS
-   ========================= */
+GLOBAL RESETS
+========================= */
 *,
 *::before,
 *::after {
@@ -48,8 +42,7 @@ html {
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", Arial, sans-serif;
-  background:
-    radial-gradient(circle at top right, rgba(255, 255, 255, 0.06), transparent 30%),
+  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.06), transparent 30%),
     linear-gradient(155deg, #0c0f1c 0%, #121e33 50%, #1d4d6e 100%);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
@@ -98,8 +91,8 @@ img {
 }
 
 /* =========================
-   SHARED UI COMPONENTS
-   ========================= */
+SHARED UI COMPONENTS
+========================= */
 .btn {
   border: none;
   border-radius: var(--radius-sm);
@@ -160,10 +153,7 @@ img {
   border-radius: var(--radius-sm);
   background: rgba(9, 17, 26, 0.82);
   color: var(--text);
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .input::placeholder,
@@ -212,8 +202,8 @@ img {
 }
 
 /* =========================
-   AUTH PAGE STYLES
-   ========================= */
+AUTH PAGE STYLES
+========================= */
 .auth-page {
   min-height: 100%;
   display: flex;
@@ -240,8 +230,7 @@ img {
   position: relative;
   overflow: hidden;
   padding: 48px 44px 44px;
-  background:
-    radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 24%),
+  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 24%),
     radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.03), transparent 24%),
     linear-gradient(160deg, #1b67b5 0%, #2375c3 55%, #2f85d0 100%);
   color: #ffffff;
@@ -294,7 +283,7 @@ img {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: shimmer 4.55s infinite linear;
+  animation: shimmer 3.5s infinite linear;
 }
 
 @keyframes shimmer {
@@ -505,8 +494,8 @@ img {
 }
 
 /* =========================
-   DASHBOARD LAYOUT & STATS
-   ========================= */
+DASHBOARD LAYOUT & STATS
+========================= */
 .dashboard-page {
   min-height: 100%;
   padding: 32px 20px 10px;
@@ -582,17 +571,9 @@ img {
 
 .dashboard-pill-button:hover {
   transform: translateY(-1px);
-  
-  /* Red Gradient Background */
   background: linear-gradient(180deg, var(--danger) 0%, #b91c1c 100%);
-  
-  /* Red Border */
   border-color: var(--danger);
-  
-  /* White Text */
   color: #ffffff;
-  
-  /* Red Glow Effect (Jalne wala look) */
   box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5);
 }
 
@@ -627,8 +608,8 @@ img {
 }
 
 /* =========================
-   AI ASSISTANT PANEL
-   ========================= */
+AI ASSISTANT PANEL
+========================= */
 .ai-assistant-card {
   border: 1px solid var(--border);
   border-radius: 20px;
@@ -936,8 +917,8 @@ img {
 }
 
 /* =========================
-   TASK CREATE FORM
-   ========================= */
+TASK CREATE FORM
+========================= */
 .dashboard-form-card.unified-card {
   background: #050a12;
   border: 1px solid #26394d;
@@ -1184,8 +1165,8 @@ img {
 }
 
 /* =========================
-   LEGACY CARDS
-   ========================= */
+LEGACY CARDS
+========================= */
 .dashboard-form-card,
 .dashboard-toolbar-card,
 .dashboard-task-table-card {
@@ -1332,10 +1313,19 @@ img {
 }
 
 /* =========================
-   MODERN UNIFIED TOOLBAR
-   ========================= */
+MODERN UNIFIED TOOLBAR
+========================= */
+.toolbar-row-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
 .modern-toolbar-container {
-  margin-bottom: 20px;
+  flex: 1;
+  margin-bottom: 0;
+  min-width: 0;
 }
 
 .modern-toolbar {
@@ -1347,13 +1337,13 @@ img {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  min-width: 0;
 }
 
-/* 1. Search Bar */
 .toolbar-search-wrapper {
   flex: 1;
-  min-width: 200px;
+  min-width: 0;
   position: relative;
   display: flex;
   align-items: center;
@@ -1361,7 +1351,7 @@ img {
 
 .toolbar-input {
   width: 100%;
-  height: 40px; /* Fixed height for alignment */
+  height: 40px;
   padding: 0 12px 0 40px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border);
@@ -1386,10 +1376,12 @@ img {
   pointer-events: none;
 }
 
-/* 2. Filters Group */
-.toolbar-actions-group {
+.toolbar-actions-group,
+.toolbar-btn-group {
   display: flex;
   gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .toolbar-dropdown-wrapper {
@@ -1398,14 +1390,13 @@ img {
   align-items: center;
 }
 
-/* Custom Select Styling */
 .toolbar-select {
   appearance: none;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   padding: 0 36px 0 12px;
-  height: 40px; /* Fixed height */
+  height: 40px;
   color: var(--text-soft);
   font-size: 0.88rem;
   font-weight: 600;
@@ -1426,7 +1417,6 @@ img {
   border-color: var(--primary);
 }
 
-/* Dropdown Icon */
 .dropdown-icon {
   position: absolute;
   right: 10px;
@@ -1434,13 +1424,6 @@ img {
   height: 16px;
   color: var(--muted);
   pointer-events: none;
-}
-
-/* 3. Action Buttons */
-.toolbar-btn-group {
-  display: flex;
-  gap: 8px;
-  align-items: center;
 }
 
 .toolbar-btn {
@@ -1453,7 +1436,7 @@ img {
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  height: 40px; /* Fixed height */
+  height: 40px;
 }
 
 .toolbar-btn-reset {
@@ -1469,7 +1452,29 @@ img {
   border-color: var(--border-strong);
 }
 
-/* HERO NEW TASK BUTTON */
+.toolbar-btn-apply {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 40px;
+  padding: 0 14px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(58, 143, 216, 0.3);
+}
+
+.toolbar-btn-apply:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(58, 143, 216, 0.4);
+  filter: brightness(1.1);
+}
+
 .toolbar-btn-new {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
   color: #ffffff;
@@ -1483,14 +1488,38 @@ img {
   filter: brightness(1.1);
 }
 
+.standalone-new-task {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 40px;
+  padding: 0 18px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(58, 143, 216, 0.3);
+  white-space: nowrap;
+}
+
+.standalone-new-task:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(58, 143, 216, 0.4);
+  filter: brightness(1.1);
+}
+
 .toolbar-icon {
   width: 18px;
   height: 18px;
 }
 
 /* =========================
-   TASK TABLE - POLISHED
-   ========================= */
+TASK TABLE - POLISHED
+========================= */
 .dashboard-task-table-card {
   overflow: hidden;
 }
@@ -1812,8 +1841,8 @@ img {
 }
 
 /* =========================
-   FOOTER
-   ========================= */
+FOOTER
+========================= */
 .app-footer {
   width: 100%;
   padding: 14px 20px 24px;
@@ -1863,118 +1892,99 @@ img {
 }
 
 /* =========================
-   RESPONSIVE DESIGN
-   ========================= */
+RESPONSIVE DESIGN - FIXED & CLEAN
+========================= */
+
+/* Tablet Breakpoint (1024px) */
 @media (max-width: 1024px) {
   .auth-shell {
     grid-template-columns: 1fr;
   }
-
   .dashboard-container.dashboard-layout {
     grid-template-columns: 1fr;
     gap: 22px;
   }
-
   .dashboard-stats-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
-
   .task-create-grid {
     grid-template-columns: 1fr 1fr;
   }
-
   .task-form-field-wide,
   .date-time-group {
     grid-column: 1 / -1;
   }
-
   .date-time-row {
     grid-template-columns: 1fr 1fr;
   }
-
   .ai-assistant-panel {
     position: static;
   }
-
   .ai-assistant-card {
     min-height: unset;
   }
-
   .ai-assistant-chat-area {
     max-height: 300px;
   }
-
-  /* Toolbar Tablet: Wrap Search and Filters */
+  
+  /* Tablet Toolbar: Wrap Search to top row */
   .modern-toolbar {
-    gap: 10px;
+    flex-wrap: wrap;
   }
-
   .toolbar-search-wrapper {
     min-width: 100%;
     order: 1;
   }
-
   .toolbar-actions-group {
     order: 2;
     flex: 1;
   }
-
   .toolbar-btn-group {
     order: 3;
   }
-
-  .toolbar-select {
-    min-width: 0;
-    flex: 1;
-    font-size: 0.85rem;
-    padding: 0 28px 0 10px;
-  }
 }
 
+/* Mobile Breakpoint (768px) - THE FIX */
 @media (max-width: 768px) {
+  /* General Layout */
   .auth-page,
   .dashboard-page {
     padding: 16px 12px 8px;
   }
-
   .dashboard-container {
     gap: 14px;
   }
-
   .dashboard-main {
     gap: 14px;
   }
-
+  
+  /* Header */
   .dashboard-header {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
     padding-bottom: 12px;
   }
-
   .dashboard-title {
     font-size: 1.75rem;
   }
-
   .dashboard-subtitle {
     font-size: 0.92rem;
   }
-
   .dashboard-header-actions {
     width: 100%;
   }
-
   .dashboard-pill-button {
     width: 100%;
     height: 40px;
   }
 
+  /* Stats */
   .dashboard-stats-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 6px;
   }
-
   .dashboard-stat-card {
     min-height: 58px;
     padding: 10px 8px;
@@ -1982,40 +1992,33 @@ img {
     align-items: center;
     text-align: center;
   }
-
   .dashboard-stat-label {
     font-size: 0.7rem;
   }
-
   .dashboard-stat-card strong {
     font-size: 1.25rem;
   }
 
+  /* Task Create Form */
   .card-header {
     flex-direction: column;
     gap: 16px;
   }
-
   .close-btn {
     width: 100%;
   }
-
   .form-row-three-col {
     grid-template-columns: 1fr;
   }
-
   .quick-date-actions {
     min-height: auto;
   }
-
   .label {
     font-size: 0.88rem;
   }
-
   .textarea {
     min-height: 92px;
   }
-
   .input,
   .select,
   .textarea {
@@ -2024,14 +2027,13 @@ img {
     padding: 11px 12px;
   }
 
+  /* Task Table */
   .dashboard-task-table-head {
     display: none;
   }
-
   .dashboard-task-table-header {
     padding: 14px 16px;
   }
-
   .dashboard-task-row {
     grid-template-columns: 1fr auto;
     grid-template-areas:
@@ -2041,17 +2043,14 @@ img {
     padding: 14px 16px;
     gap: 8px;
   }
-
   .task-row-title-cell {
     grid-area: title;
     font-size: 1rem;
   }
-
   .task-row-action-cell {
     grid-area: action;
     justify-content: flex-end;
   }
-
   .dashboard-task-row > div:nth-child(2),
   .dashboard-task-row > div:nth-child(3),
   .task-row-due-cell {
@@ -2061,10 +2060,8 @@ img {
     gap: 8px;
     font-size: 0.85rem;
   }
-
   .dashboard-task-row > div:nth-child(2) { justify-content: flex-start; }
   .dashboard-task-row > div:nth-child(3) { justify-content: flex-end; margin-left: auto; }
-  
   .task-row-due-cell {
     justify-content: flex-start;
     background: transparent;
@@ -2072,44 +2069,36 @@ img {
     margin-top: 4px;
     width: 100%;
   }
-
   .task-row-toggle {
     width: 42px;
     height: 42px;
   }
-
   .task-chip {
     min-height: 28px;
     padding: 5px 10px;
     font-size: 0.76rem;
   }
-
   .dashboard-task-row-expand {
     padding: 14px;
   }
-
   .task-detail-block {
     padding: 12px 14px;
   }
-
   .task-detail-text {
     font-size: 0.9rem;
     line-height: 1.65;
   }
-
   .task-expanded-actions {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
   }
-
   .task-status-actions,
   .task-secondary-actions {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
   }
-
   .small-primary-btn,
   .small-idle-btn,
   .small-accent-btn,
@@ -2118,123 +2107,134 @@ img {
     min-height: 42px;
     font-size: 0.95rem;
   }
-
   .dashboard-pagination {
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 14px;
   }
 
+  /* AI Panel */
   .ai-assistant-card {
     padding: 14px;
     min-height: auto;
   }
-
   .ai-assistant-chat-area {
     min-height: 200px;
     max-height: 240px;
   }
-
   .ai-button-row {
     flex-direction: column;
   }
-
   .ai-primary-button,
   .ai-secondary-button {
     width: 100%;
   }
-
   .app-footer {
     padding: 10px 14px 20px;
   }
 
-  /* Toolbar Mobile: Stack vertically */
-  .modern-toolbar {
+  /* =========================
+     TOOLBAR MOBILE FIX (2 ROWS)
+     ========================= */
+  
+  /* 1. Main Wrapper: Stack Toolbar and New Task Button vertically */
+  .toolbar-row-wrapper {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
-    padding: 12px;
-  }
-
-  .toolbar-search-wrapper,
-  .toolbar-actions-group,
-  .toolbar-btn-group {
     width: 100%;
   }
 
-  .toolbar-actions-group {
-    justify-content: space-between;
+  /* 2. Toolbar Container */
+  .modern-toolbar-container {
+    width: 100%;
+    margin: 0;
   }
 
-  .toolbar-select {
-    flex: 1;
+  .modern-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px;
+    width: 100%;
+  }
+
+  /* 3. Search Bar (Full Width) */
+  .toolbar-search-wrapper {
+    width: 100%;
     min-width: 0;
   }
 
+  /* 4. Filters Group (Grid: 2 Columns) */
+  .toolbar-actions-group {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Status | Priority */
+    gap: 8px;
+  }
+
+  /* Sort Dropdown takes full width in the grid */
+  .toolbar-select-sort {
+    grid-column: 1 / -1;
+  }
+
+  .toolbar-select {
+    width: 100%;
+    min-width: 0;
+    font-size: 0.82rem;
+    padding: 0 28px 0 10px;
+    height: 38px;
+  }
+
+  /* 5. Buttons Group (Apply + Refresh) */
   .toolbar-btn-group {
+    width: 100%;
     justify-content: flex-end;
+    gap: 8px;
   }
 
-  /* Hide "New Task" text on mobile, keep icon */
-  .toolbar-btn-new span {
-    display: none;
+  .toolbar-btn {
+    height: 38px;
   }
 
-  .toolbar-btn-new {
-    padding: 0 14px;
+  .toolbar-btn-reset {
+    padding: 0 12px;
+  }
+
+  .toolbar-btn-apply {
+    padding: 0 16px;
+    font-size: 0.85rem;
+  }
+
+  /* 6. Standalone New Task Button (Full Width) */
+  .standalone-new-task {
+    width: 100%;
+    justify-content: center;
+    height: 44px;
+    margin-top: 4px;
+    font-size: 1rem;
   }
 }
 
+/* Small Mobile (480px) */
 @media (max-width: 480px) {
   .auth-brand-shimmer-label { font-size: 0.8rem; }
   .auth-brand-title { font-size: 1.9rem; }
   .auth-brand-tagline { font-size: 1.6rem; }
   .auth-brand-text { font-size: 0.95rem; }
-
-  .auth-feature-row {
-    gap: 8px;
-  }
-
-  .auth-feature-badge {
-    font-size: 0.7rem;
-    padding: 0 10px;
-  }
-
-  .auth-note span:first-child {
-    font-size: 0.85rem;
-    opacity: 0.9;
-  }
-
-  .dashboard-title {
-    font-size: 1.65rem;
-  }
-
-  .dashboard-stats-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .dashboard-task-row {
-    grid-template-columns: 1fr 44px;
-    padding: 14px;
-  }
-
-  .date-time-row {
-    grid-template-columns: 1fr;
-  }
-
-  .quick-date-actions {
-    gap: 8px;
-  }
-
-  .quick-date-btn {
-    min-height: 36px;
-    padding: 0 13px;
-  }
-
-  .ai-assistant-title {
-    font-size: 0.8rem;
-  }
-
+  .auth-feature-row { gap: 8px; }
+  .auth-feature-badge { font-size: 0.7rem; padding: 0 10px; }
+  .auth-note span:first-child { font-size: 0.85rem; opacity: 0.9; }
+  
+  .dashboard-title { font-size: 1.65rem; }
+  .dashboard-stats-grid { grid-template-columns: repeat(4, 1fr); }
+  .dashboard-task-row { grid-template-columns: 1fr 44px; padding: 14px; }
+  
+  .date-time-row { grid-template-columns: 1fr; }
+  .quick-date-actions { gap: 8px; }
+  .quick-date-btn { min-height: 36px; padding: 0 13px; }
+  .ai-assistant-title { font-size: 0.8rem; }
+  
   .btn,
   .dashboard-primary-action,
   .ai-primary-button,
@@ -2243,14 +2243,18 @@ img {
     font-size: 0.95rem;
   }
 
-  /* Toolbar Small Mobile */
+  /* Toolbar Compactness */
   .toolbar-select {
-    font-size: 0.82rem;
-    padding: 0 28px 0 10px;
+    font-size: 0.78rem;
+    padding: 0 24px 0 8px;
+    min-width: 0;
   }
-
   .toolbar-icon {
     width: 16px;
     height: 16px;
+  }
+  .toolbar-btn-apply {
+    font-size: 0.8rem;
+    padding: 0 12px;
   }
 }
