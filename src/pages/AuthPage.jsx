@@ -187,7 +187,7 @@ function AuthPage({ onLogin }) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
+                placeholder="abcd@mail.com"
                 disabled={loading}
               />
             </div>
@@ -251,7 +251,6 @@ function AuthPage({ onLogin }) {
           </div>
 
           <div className="auth-note">
-            <span>🔒</span>
             <span>Secure & Private</span>
           </div>
         </section>
