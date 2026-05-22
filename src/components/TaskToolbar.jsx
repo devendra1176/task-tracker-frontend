@@ -7,14 +7,13 @@ function TaskToolbar({
   onStatusChange,
   onPriorityChange,
   onSortChange,
-  onApply, // We will apply immediately on change in this design, or keep Apply if needed. Let's apply on change for speed, but keep Apply for consistency if user prefers. Let's stick to immediate change for modern feel, or keep Apply. Let's keep Apply for now to match your logic.
+  onApply,
   onReset,
-  onNewTask, // New Prop
 }) {
   return (
     <section className="modern-toolbar-container">
       <div className="modern-toolbar">
-        {/* 1. Search Bar (Hero Input) */}
+        {/* 1. Search Bar (Takes remaining space) */}
         <div className="toolbar-search-wrapper">
           <svg className="toolbar-icon search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -28,16 +27,10 @@ function TaskToolbar({
           />
         </div>
 
-        {/* 2. Filters & Sort Group (Compact Icons) */}
+        {/* 2. Filters & Sort (Fixed width, no shrink) */}
         <div className="toolbar-actions-group">
-          
-          {/* Status Filter */}
           <div className="toolbar-dropdown-wrapper">
-            <select
-              className="toolbar-select toolbar-select-status"
-              value={statusFilter}
-              onChange={(e) => onStatusChange(e.target.value)}
-            >
+            <select className="toolbar-select toolbar-select-status" value={statusFilter} onChange={(e) => onStatusChange(e.target.value)}>
               <option value="">All Status</option>
               <option value="TODO">Todo</option>
               <option value="IN_PROGRESS">In Progress</option>
@@ -48,13 +41,8 @@ function TaskToolbar({
             </svg>
           </div>
 
-          {/* Priority Filter */}
           <div className="toolbar-dropdown-wrapper">
-            <select
-              className="toolbar-select toolbar-select-priority"
-              value={priorityFilter}
-              onChange={(e) => onPriorityChange(e.target.value)}
-            >
+            <select className="toolbar-select toolbar-select-priority" value={priorityFilter} onChange={(e) => onPriorityChange(e.target.value)}>
               <option value="">All Priority</option>
               <option value="LOW">Low</option>
               <option value="MEDIUM">Medium</option>
@@ -65,13 +53,8 @@ function TaskToolbar({
             </svg>
           </div>
 
-          {/* Sort Dropdown */}
           <div className="toolbar-dropdown-wrapper">
-            <select
-              className="toolbar-select toolbar-select-sort"
-              value={sortOption}
-              onChange={(e) => onSortChange(e.target.value)}
-            >
+            <select className="toolbar-select toolbar-select-sort" value={sortOption} onChange={(e) => onSortChange(e.target.value)}>
               <option value="dueDateTime-asc">Sort: Due Date</option>
               <option value="id-desc">Latest</option>
               <option value="id-asc">Oldest</option>
@@ -85,20 +68,15 @@ function TaskToolbar({
           </div>
         </div>
 
-        {/* 3. Action Buttons */}
+        {/* 3. Apply & Refresh (Fixed width) */}
         <div className="toolbar-btn-group">
-          <button type="button" className="toolbar-btn toolbar-btn-reset" onClick={onReset} title="Reset Filters">
+          <button type="button" className="toolbar-btn toolbar-btn-apply" onClick={onApply}>
+            Apply
+          </button>
+          <button type="button" className="toolbar-btn toolbar-btn-reset" onClick={onReset} title="Refresh Filters">
             <svg className="toolbar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
-          </button>
-          
-          {/* Hero New Task Button */}
-          <button type="button" className="toolbar-btn toolbar-btn-new" onClick={onNewTask}>
-            <svg className="toolbar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            <span>New Task</span>
           </button>
         </div>
       </div>
