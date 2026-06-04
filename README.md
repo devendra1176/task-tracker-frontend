@@ -1,69 +1,180 @@
 # Task Tracker Frontend
 
-A clean and responsive frontend for the Task Tracker project, built using **React** and **Vite**, and integrated with a secure **Spring Boot backend API**.
+### AI-Powered Task Management Platform built with React and Vite
+
+Task Tracker Frontend is a modern and responsive task management application that helps users organize work, track deadlines, monitor progress, and receive AI-powered productivity insights.
+
+The application provides secure authentication, personalized task management, overdue task detection, intelligent task prioritization, and an integrated AI assistant that helps users stay focused and productive.
+
+> This repository contains the **frontend application**. The backend API is maintained in a separate repository and deployed independently.
 
 ---
 
 ## Live Application
 
-Frontend (Full Application):
-https://task-tracker-frontend-devendra1176s-projects.vercel.app/
+**Frontend Application**
 
-Backend API:
-https://task-tracker-api-kgsq.onrender.com
+https://tasktracker.app.devendra.indevs.in
 
 ---
 
 ## Features
 
-* User signup and login interface
-* JWT-based authentication flow
-* Token-based access to protected APIs
-* Task dashboard for authenticated users
-* Create, update, and delete tasks
-* Search tasks by keyword
-* Filter tasks by status and priority
-* Pagination support
-* Clean and modern user interface
-* Integration with backend REST APIs
+### Authentication
+
+- User Registration
+- User Login
+- JWT-Based Authentication
+- Protected Routes
+- Secure Session Handling
+
+### Task Management
+
+- Create Tasks
+- View Tasks
+- Update Tasks
+- Delete Tasks
+- Task Status Management
+- Priority Management
+- Due Date Tracking
+
+### Dashboard Experience
+
+- Real-Time Task Overview
+- Total, Todo, In Progress, and Done Statistics
+- Search Tasks by Keyword
+- Filter by Status
+- Filter by Priority
+- Due Date Sorting
+- Default Latest-First Task Ordering
+- Responsive Dashboard Layout
+
+### Productivity Features
+
+- Overdue Task Detection
+- Overdue Task Highlighting
+- Intelligent Task Prioritization
+- Deadline Awareness
+- Progress Visibility
+
+### AI Assistant
+
+The dashboard includes an AI-powered productivity assistant that analyzes task data and provides:
+
+- Personalized Task Summaries
+- Overdue Task Analysis
+- Priority Recommendations
+- Productivity Suggestions
+- Deadline-Aware Planning Guidance
+- Natural Language Task Assistance
+
+AI responses are generated using the authenticated user's task data to provide personalized recommendations.
+Recommendations dynamically change based on task status, priority, due dates, and overdue conditions.
+---
+
+## Screenshots
+
+### Dashboard
+
+![Dashboard.png](docs/images/Dashboard.png)
+
+### AI Assistant
+
+![Ai_Assistant.png](docs/images/Ai_Assistant.png)
+
+### Authentication
+
+![Authentication.png](docs/images/Authentication.png)
 
 ---
 
 ## Tech Stack
 
-* React
-* Vite
-* JavaScript
-* CSS
-* Fetch API
+### Frontend
+
+- React
+- Vite
+- JavaScript (ES6+)
+- CSS
+
+### Authentication
+
+- JWT Authentication
+- Protected Client Routes
+
+### API Integration
+
+- Fetch API
+- REST API Communication
+
+### Deployment
+
+- Vercel
+- Custom Domain
+- HTTPS
 
 ---
 
-## Application Flow
+## Architecture
+
+```text
+React Frontend
+        │
+        ▼
+JWT Authentication
+        │
+        ▼
+Spring Boot REST API
+        │
+        ▼
+Spring AI Services
+        │
+        ▼
+PostgreSQL Database
+```
+
+The frontend communicates with a secure Spring Boot backend through authenticated REST API requests.
+
+---
+
+## Authentication Flow
 
 1. User signs up or logs in
-2. Backend returns a JWT token
-3. Token is stored on the client side
-4. Protected API requests include the Bearer token
-5. User can manage only their own tasks
-
----
-
-## Main Pages
-
-* Auth Page
-* Dashboard Page
+2. Backend validates credentials
+3. JWT token is returned to the frontend
+4. Token is stored on the client side
+5. Protected API requests include the Bearer token
+6. Users can access only their own task data
 
 ---
 
 ## Backend Integration
 
-This frontend is integrated with the Task Tracker backend API built using:
+This frontend integrates with a backend API built using:
 
-* Spring Boot
-* Spring Security
-* JWT Authentication
-* PostgreSQL
+- Spring Boot
+- Spring Security
+- JWT Authentication
+- PostgreSQL
+- Spring AI
+- AWS EC2
+- Amazon RDS PostgreSQL
+
+Backend Repository:
+
+https://github.com/devendra1176/task-tracker-api
+
+---
+
+## Responsive Design
+
+The application is designed to work across:
+
+- Desktop Devices
+- Tablets
+- Mobile Devices
+
+Responsive layouts ensure a consistent user experience across different screen sizes.
 
 ---
 
@@ -71,33 +182,31 @@ This frontend is integrated with the Task Tracker backend API built using:
 
 ### Requirements
 
-* Node.js
-* npm
+- Node.js
+- npm
 
-### Clone the repository
+### Clone Repository
 
-```bash id="2mook7"
+```bash
 git clone https://github.com/devendra1176/task-tracker-frontend.git
 cd task-tracker-frontend
 ```
 
-### Install dependencies
+### Install Dependencies
 
-```bash id="6w88q8"
+```bash
 npm install
 ```
 
-### Start the development server
+### Start Development Server
 
-```bash id="fb2p7a"
+```bash
 npm run dev
 ```
 
-### Frontend URL
+### Application URL
 
-After running locally, open:
-
-```text id="wnl96z"
+```text
 http://localhost:5173
 ```
 
@@ -105,18 +214,30 @@ http://localhost:5173
 
 ## Deployment
 
-* Frontend deployed on Vercel
-* Backend deployed separately on Render
+### Frontend
+
+- Hosted on Vercel
+- Custom Domain Enabled
+- HTTPS Secured
+
+### Backend
+
+- Hosted Separately
+- AWS EC2 Deployment
+- Amazon RDS PostgreSQL
+- GitHub Actions CI/CD Pipeline
 
 ---
 
 ## Future Improvements
 
-* Better UI polish
-* Inline task editing
-* Improved loading and error states
-* Better mobile responsiveness
-* Dark mode enhancements
+- Inline Task Editing
+- Advanced Dashboard Analytics
+- Enhanced Mobile Experience
+- Additional AI Productivity Workflows
+- Calendar View
+- Notifications and Reminders
+- Improved Accessibility
 
 ---
 
@@ -124,13 +245,22 @@ http://localhost:5173
 
 **Devendra Sahu**
 
-Aspiring Java Backend Developer | Spring Boot | REST APIs | JWT | PostgreSQL | Learning React
+Java Backend Developer | Spring Boot | AWS | PostgreSQL | AI Integration | REST APIs
 
 ---
 
-## Project Goal
+## 🎯 Project Goal
 
-This frontend was built to transform a secure backend system into a usable product with authentication, task operations, and a clean dashboard experience.
+This frontend was built to transform a secure backend system into a complete user experience by combining authentication, task management, productivity tracking, and AI-powered assistance within a modern and responsive dashboard.
 
----
+The project demonstrates frontend engineering concepts including:
+
+- Component-Based UI Development
+- API Integration
+- JWT Authentication Flow
+- State Management
+- Responsive Design
+- User Experience Design
+- AI Feature Integration
+
 ---
